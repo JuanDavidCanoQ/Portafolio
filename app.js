@@ -191,25 +191,39 @@ function renderDocumentos(){
   </div>`;
 }
 
+/* Tarjeta compacta compartida por Casos de negocio y Soluciones:
+   numeración, miniatura, categoría (color de sección) y tipo, descripción
+   breve, enlace. Formato "galería continua", no la ficha ancha anterior.  */
+function caseCardHTML({ num, accentVar, preview, categoria, tipo, desc, ctaUrl, ctaLabel }){
+  const link = ctaUrl
+    ? `<a href="${ctaUrl}" target="_blank" rel="noopener" class="case-link">${esc(ctaLabel)} →</a>`
+    : `<span class="case-link case-link-soon">${esc(t("btn_soon"))}</span>`;
+  return `
+  <div class="panel reveal case-card c-3">
+    <div class="case-thumb">
+      <span class="case-num">${esc(num)}</span>
+      ${PREVIEWS[preview] || ""}
+    </div>
+    <div class="case-body">
+      <h4 class="case-category">${esc(categoria)}</h4>
+      <span class="case-type" style="color:var(${accentVar});">${esc(tipo)}</span>
+      <p class="case-desc">${esc(desc)}</p>
+      ${link}
+    </div>
+  </div>`;
+}
+
 function renderCasos(){
-  return CONTENIDO.casos.map(p => {
-    const items = p.items.map(i =>
-      `<li><span class="check">✓</span><span>${esc(T(i))}</span></li>`).join("");
-    const cta = p.cta
-      ? `<a href="${p.cta.url}" target="_blank" rel="noopener" class="btn">${esc(T(p.cta.label))}</a>`
-      : `<span class="btn btn-soon">${esc(t("btn_soon"))}</span>`;
-    return `
-    <div class="panel reveal proj-card c-6" style="--accent:var(--${p.color});">
-      <div class="proj-num">${esc(p.num)}</div>
-      <h3 class="proj-title">${esc(T(p.titulo))}</h3>
-      <p class="proj-desc">${esc(T(p.desc))}</p>
-      <div class="proj-inner">
-        <ul class="proj-list">${items}</ul>
-        <div class="proj-preview">${PREVIEWS[p.preview]||""}</div>
-      </div>
-      <div class="proj-footer">${cta}</div>
-    </div>`;
-  }).join("");
+  return CONTENIDO.casos.map(p => caseCardHTML({
+    num: p.num,
+    accentVar: `--${p.color}`,
+    preview: p.preview,
+    categoria: T(p.categoria),
+    tipo: T(p.tipo),
+    desc: T(p.desc),
+    ctaUrl: p.cta ? p.cta.url : null,
+    ctaLabel: t("btn_view_project")
+  })).join("");
 }
 
 function renderPerfil(){
@@ -225,25 +239,16 @@ function renderPerfil(){
 }
 
 function renderSoluciones(){
-  return CONTENIDO.herramientas.map((h, i) => {
-    const live = h.estado === "live";
-    const cta = (live && h.url)
-      ? `<a href="${h.url}" target="_blank" rel="noopener" class="btn">${esc(t("btn_view_project"))}</a>`
-      : `<span class="btn btn-soon">${esc(t("btn_soon"))}</span>`;
-    return `
-    <div class="panel reveal proj-card c-6" style="--accent:var(--cyan);">
-      <div class="proj-num">${String(i+1).padStart(2,"0")}</div>
-      <h3 class="proj-title">${esc(h.nombre)}</h3>
-      <p class="proj-desc">${esc(T(h.desc))}</p>
-      <div class="proj-inner">
-        <div class="proj-preview" style="grid-column:1 / -1;">${PREVIEWS.matriz || ""}</div>
-      </div>
-      <div class="proj-footer">
-        <span class="pill${live ? "" : " pill-soon"}" style="margin-right:auto;">${esc(live ? t("pill_live") : t("pill_soon"))}</span>
-        ${cta}
-      </div>
-    </div>`;
-  }).join("");
+  return CONTENIDO.herramientas.map((h, i) => caseCardHTML({
+    num: String(i+1).padStart(2,"0"),
+    accentVar: "--cyan",
+    preview: "matriz",
+    categoria: T(h.categoria),
+    tipo: h.nombre,
+    desc: T(h.desc),
+    ctaUrl: (h.estado === "live" && h.url) ? h.url : null,
+    ctaLabel: t("btn_view_project")
+  })).join("");
 }
 
 function renderImpactoStrip(){
@@ -252,7 +257,22 @@ function renderImpactoStrip(){
       <span class="impact-chip-icon" style="color:var(--${i.color});">${ICONOS[i.icono]||""}</span>
       <span>${esc(T(i.frase))}</span>
     </div>`).join("");
-  return `<div class="impact-strip">${items}</div>`;
+  return `
+  <div class="panel reveal impact-strip">
+    <span class="impact-kicker">${esc(t("impact_kicker"))}</span>
+    <div class="impact-items">${items}</div>
+  </div>`;
+}
+
+/* ------------------------------------------------------------ INVESTIGACIÓN
+   Sin estudios publicados todavía: estado vacío honesto, no contenido
+   inventado. Se reemplaza por tarjetas reales cuando exista el primero.  */
+function renderInvestigacion(){
+  return `
+  <div class="panel reveal placeholder-panel c-12">
+    <div class="placeholder-icon">${ICONOS.doc}</div>
+    <p class="placeholder-text">${esc(t("investigacion_empty"))}</p>
+  </div>`;
 }
 
 function renderFooter(){
@@ -281,8 +301,9 @@ function render(){
   set("metricsGrid",  renderMetricas());
   set("impactStrip",  renderImpactoStrip());
   set("toolsGrid",    renderStack() + renderHerramientas() + renderDocumentos());
-  set("casosGrid",       renderCasos());
-  set("solucionesGrid",  renderSoluciones());
+  set("casosGrid",         renderCasos());
+  set("solucionesGrid",    renderSoluciones());
+  set("investigacionGrid", renderInvestigacion());
   set("aboutGrid",       renderPerfil());
   set("footerPanel",  renderFooter());
 
