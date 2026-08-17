@@ -330,13 +330,58 @@ body::after{
   color:var(--text-dim);margin:0;padding-top:14px;border-top:1px solid var(--line);}
 .perfil-formacion svg{width:15px;height:15px;flex-shrink:0;color:var(--violet);}
 
-/* ---------- Franja de impacto (dentro de Inicio) ---------- */
+/* ---------- Franja de impacto (dentro de Inicio, con marco propio) ---------- */
 .impact-strip{
-  display:flex;flex-wrap:wrap;gap:10px 26px;
-  margin:18px 2px 0;padding:14px 4px;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  margin-top:16px;padding:16px 24px;
 }
+.impact-kicker{
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-faint);flex-shrink:0;white-space:nowrap;
+}
+.impact-items{display:flex;flex-wrap:wrap;gap:12px 26px;flex:1;}
 .impact-chip{display:flex;align-items:center;gap:8px;font-size:12.5px;
   font-weight:600;color:var(--text-dim);}
 .impact-chip-icon{display:flex;flex-shrink:0;}
 .impact-chip-icon svg{width:16px;height:16px;}
+
+/* ---------- Tarjeta compacta: Casos de negocio y Soluciones ---------- */
+.case-card{padding:0;display:flex;flex-direction:column;}
+.case-thumb{
+  position:relative;aspect-ratio:16/10;background:var(--panel-2);
+  border-bottom:1px solid var(--line);overflow:hidden;
+}
+.case-thumb svg{width:100%;height:100%;display:block;}
+.case-num{
+  position:absolute;top:10px;left:10px;z-index:2;
+  background:color-mix(in srgb,var(--panel) 90%,transparent);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid var(--line);border-radius:8px;
+  padding:4px 9px;font-family:var(--mono);font-weight:800;font-size:12.5px;
+  color:var(--text);box-shadow:var(--shadow);
+}
+.case-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:5px;flex:1;}
+.case-category{font-size:14.5px;font-weight:800;margin:0;color:var(--text);line-height:1.3;}
+.case-type{font-family:var(--mono);font-size:11px;font-weight:600;line-height:1.4;}
+.case-desc{font-size:12px;line-height:1.55;color:var(--text-dim);margin:2px 0 10px;flex:1;}
+.case-link{
+  font-size:12px;font-weight:700;color:var(--grad-a);text-decoration:none;
+  margin-top:auto;display:inline-flex;align-items:center;gap:4px;
+}
+.case-link:hover{text-decoration:underline;}
+.case-link-soon{color:var(--text-faint);cursor:default;}
+.case-link-soon:hover{text-decoration:none;}
+
+/* ---------- Estado vacío (Investigación y futuros placeholders) ---------- */
+.placeholder-panel{
+  border:1.5px dashed var(--line-strong);background:transparent;box-shadow:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:10px;padding:34px 24px;color:var(--text-faint);
+}
+.placeholder-panel:hover{transform:none;box-shadow:none;}
+.placeholder-icon{
+  width:34px;height:34px;border-radius:50%;background:var(--panel-2);
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+}
+.placeholder-icon svg{width:16px;height:16px;color:var(--text-faint);}
+.placeholder-text{font-size:12.5px;line-height:1.6;max-width:420px;margin:0;}
