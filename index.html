@@ -36,9 +36,11 @@
     </a>
     <div class="nav-right">
       <div class="nav-links">
-        <a href="#proyectos" data-t="nav_proyectos">Proyectos</a>
-        <a href="#sobremi"   data-t="nav_sobremi">Sobre mí</a>
-        <a href="#contacto"  data-t="nav_contacto">Contacto</a>
+        <a href="#" data-t="nav_inicio">Inicio</a>
+        <a href="#casos" data-t="nav_casos">Casos de negocio</a>
+        <a href="#soluciones" data-t="nav_soluciones">Soluciones</a>
+        <a href="#sobremi" data-t="nav_sobremi">Sobre mí</a>
+        <a href="#contacto" data-t="nav_contacto">Contacto</a>
       </div>
       <div class="lang-toggle" id="langToggle">
         <button data-lang="es" class="active">ES</button>
@@ -58,26 +60,32 @@
   <!-- Métricas -->
   <div class="grid" id="metricsGrid" style="margin-top:22px;"></div>
 
+  <!-- Franja de impacto (resumen corto, ya no es sección aparte) -->
+  <div id="impactStrip"></div>
+
   <!-- Stack · Herramientas · Documentos -->
   <div class="grid" id="toolsGrid" style="margin-top:16px;"></div>
 
-  <!-- Proyectos -->
-  <div class="sec-head" id="proyectos" style="--sec-accent:var(--orange-fill);">
-    <span class="sec-kicker" data-t="sec_projects">Proyectos destacados</span>
+  <!-- Casos de negocio -->
+  <div class="sec-head" id="casos" style="--sec-accent:var(--orange-fill);">
+    <div>
+      <span class="sec-kicker" data-t="sec_casos">Casos de negocio</span>
+    </div>
+    <p class="sec-note" data-t="casos_note">Casos reales de trabajo, con datos y nombres modificados o sintetizados para proteger información confidencial.</p>
   </div>
-  <div class="grid" id="projectsGrid"></div>
+  <div class="grid" id="casosGrid"></div>
+
+  <!-- Soluciones -->
+  <div class="sec-head" id="soluciones" style="--sec-accent:var(--cyan);">
+    <span class="sec-kicker" data-t="sec_soluciones">Soluciones</span>
+  </div>
+  <div class="grid" id="solucionesGrid"></div>
 
   <!-- Sobre mí -->
   <div class="sec-head" id="sobremi" style="--sec-accent:var(--violet);">
     <span class="sec-kicker" data-t="sec_about">Sobre mí</span>
   </div>
   <div class="grid" id="aboutGrid"></div>
-
-  <!-- Impacto -->
-  <div class="sec-head" style="--sec-accent:var(--mint);">
-    <span class="sec-kicker" data-t="sec_impact">Impacto en el negocio</span>
-  </div>
-  <div class="grid" id="impactGrid"></div>
 
   <!-- Contacto -->
   <div class="panel reveal footer-panel" id="contacto" style="--accent:var(--grad-a);">
