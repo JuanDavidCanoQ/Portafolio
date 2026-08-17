@@ -27,6 +27,7 @@ const CONTENIDO = {
     nav_inicio:     { es:"Inicio",                  en:"Home" },
     nav_casos:      { es:"Casos de negocio",         en:"Business Cases" },
     nav_soluciones: { es:"Soluciones",              en:"Solutions" },
+    nav_investigacion: { es:"Investigación",       en:"Research" },
     nav_sobremi:    { es:"Sobre mí",                en:"About" },
     nav_contacto:   { es:"Contacto",                en:"Contact" },
 
@@ -65,12 +66,18 @@ const CONTENIDO = {
 
     sec_casos:      { es:"Casos de negocio", en:"Business cases" },
     sec_soluciones: { es:"Soluciones", en:"Solutions" },
+    sec_investigacion: { es:"Investigación", en:"Research" },
+    investigacion_note: { es:"Análisis de mercado, tendencias e investigaciones propias.",
+                           en:"Market analysis, trends and original research." },
+    investigacion_empty: { es:"El primer estudio está en preparación: análisis de mercado y hallazgos aplicados a decisiones de negocio.",
+                            en:"The first study is in preparation: market analysis and findings applied to business decisions." },
     casos_note:     { es:"Casos reales de trabajo, con datos y nombres modificados o sintetizados para proteger información confidencial.",
                       en:"Real work cases, with data and names modified or synthesized to protect confidential information." },
     sec_about:    { es:"Sobre mí", en:"About me" },
 
     btn_soon:         { es:"Próximamente",   en:"Coming soon" },
 
+    impact_kicker: { es:"Esto se traduce en", en:"This translates into" },
     footer_kicker: { es:"¿Hablamos?", en:"Let's talk" },
     footer_text:   { es:"Estoy abierto a colaborar en proyectos de datos, marketing y decisiones de negocio.",
                      en:"I'm open to collaborating on data, marketing and business decision projects." },
@@ -118,6 +125,7 @@ const CONTENIDO = {
      estado: "live" | "soon"                                               */
   herramientas: [
     { nombre:"Matriz de Ponderación",
+      categoria:{ es:"Decision Intelligence", en:"Decision Intelligence" },
       url:"https://matriz-ponderacion.vercel.app/",
       estado:"live",
       desc:{ es:"Evalúa y prioriza opciones según criterios ponderados.",
@@ -136,10 +144,10 @@ const CONTENIDO = {
      cta: { label:{es,en}, url } o null para mostrar "Próximamente"          */
   casos: [
     { num:"01", color:"orange-fill", preview:"dashboard",
-      titulo:{ es:"Análisis comercial — sector motos",
-               en:"Commercial analysis — motorcycle sector" },
-      desc:{ es:"Caso en preparación: análisis de ventas, margen e inventario para un distribuidor del sector de motos. Estructura y metodología reales; en proceso de anonimizar cifras.",
-             en:"Case in preparation: sales, margin and inventory analysis for a motorcycle sector distributor. Real structure and methodology; figures being anonymized." },
+      categoria:{ es:"Inteligencia Comercial", en:"Commercial Intelligence" },
+      tipo:{ es:"Dashboard Power BI · Sector motos", en:"Power BI Dashboard · Motorcycle sector" },
+      desc:{ es:"Modelo de ventas, margen e inventario para un distribuidor del sector motos. En preparación — anonimizando cifras.",
+             en:"Sales, margin and inventory model for a motorcycle sector distributor. In preparation — anonymizing figures." },
       items:[
         { es:"Ventas y margen por canal", en:"Sales and margin by channel" },
         { es:"Inventario y rotación",     en:"Inventory and turnover" },
