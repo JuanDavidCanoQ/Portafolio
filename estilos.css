@@ -203,6 +203,7 @@ body::after{
 .sec-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);
   position:relative;padding-left:13px;}
 .sec-kicker::before{content:"";position:absolute;left:0;top:1px;bottom:1px;width:3px;border-radius:2px;background:var(--sec-accent,var(--grad-a));}
+.sec-note{font-size:12px;line-height:1.5;color:var(--text-faint);margin:0;max-width:420px;}
 .sec-link{font-size:12.5px;font-weight:600;color:var(--grad-a);text-decoration:none;display:inline-flex;gap:6px;align-items:center;}
 .sec-link:hover{text-decoration:underline;}
 
@@ -258,7 +259,7 @@ body::after{
 .proj-list .check{color:var(--accent);flex-shrink:0;font-size:11px;margin-top:1px;}
 .proj-preview{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--panel-2);}
 .proj-preview svg{width:100%;height:100%;display:block;}
-.proj-footer{margin-top:18px;}
+.proj-footer{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 
 /* ---------- Impact cards ---------- */
 .impact-card{display:flex;gap:14px;align-items:flex-start;}
@@ -328,3 +329,14 @@ body::after{
 .perfil-formacion{display:flex;align-items:center;gap:9px;font-size:12.5px;
   color:var(--text-dim);margin:0;padding-top:14px;border-top:1px solid var(--line);}
 .perfil-formacion svg{width:15px;height:15px;flex-shrink:0;color:var(--violet);}
+
+/* ---------- Franja de impacto (dentro de Inicio) ---------- */
+.impact-strip{
+  display:flex;flex-wrap:wrap;gap:10px 26px;
+  margin:18px 2px 0;padding:14px 4px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.impact-chip{display:flex;align-items:center;gap:8px;font-size:12.5px;
+  font-weight:600;color:var(--text-dim);}
+.impact-chip-icon{display:flex;flex-shrink:0;}
+.impact-chip-icon svg{width:16px;height:16px;}
