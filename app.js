@@ -174,7 +174,7 @@ function renderHerramientas(){
     </span>
     <p class="tool-intro">${esc(t("tools_intro"))}</p>
     <ul class="tool-list">${items}</ul>
-    <a href="#proyectos" class="sec-link" style="margin-top:16px;display:inline-flex;">${esc(t("tools_seeall"))}</a>
+    <a href="#soluciones" class="sec-link" style="margin-top:14px;display:inline-flex;">${esc(t("tools_seeall"))}</a>
   </div>`;
 }
 
@@ -191,8 +191,8 @@ function renderDocumentos(){
   </div>`;
 }
 
-function renderProyectos(){
-  return CONTENIDO.proyectos.map(p => {
+function renderCasos(){
+  return CONTENIDO.casos.map(p => {
     const items = p.items.map(i =>
       `<li><span class="check">✓</span><span>${esc(T(i))}</span></li>`).join("");
     const cta = p.cta
@@ -224,15 +224,35 @@ function renderPerfil(){
   </div>`;
 }
 
-function renderImpacto(){
-  return CONTENIDO.impacto.map(i => `
-    <div class="panel reveal impact-card c-3" style="--accent:var(--${i.color});">
-      <div class="icon-circle" style="--accent:var(--${i.color});color:var(--${i.color});">${ICONOS[i.icono]||""}</div>
-      <div class="impact-body">
-        <h4 class="impact-title">${esc(T(i.titulo))}</h4>
-        <p class="impact-text">${esc(T(i.texto))}</p>
+function renderSoluciones(){
+  return CONTENIDO.herramientas.map((h, i) => {
+    const live = h.estado === "live";
+    const cta = (live && h.url)
+      ? `<a href="${h.url}" target="_blank" rel="noopener" class="btn">${esc(t("btn_view_project"))}</a>`
+      : `<span class="btn btn-soon">${esc(t("btn_soon"))}</span>`;
+    return `
+    <div class="panel reveal proj-card c-6" style="--accent:var(--cyan);">
+      <div class="proj-num">${String(i+1).padStart(2,"0")}</div>
+      <h3 class="proj-title">${esc(h.nombre)}</h3>
+      <p class="proj-desc">${esc(T(h.desc))}</p>
+      <div class="proj-inner">
+        <div class="proj-preview" style="grid-column:1 / -1;">${PREVIEWS.matriz || ""}</div>
       </div>
+      <div class="proj-footer">
+        <span class="pill${live ? "" : " pill-soon"}" style="margin-right:auto;">${esc(live ? t("pill_live") : t("pill_soon"))}</span>
+        ${cta}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderImpactoStrip(){
+  const items = CONTENIDO.impacto.map(i => `
+    <div class="impact-chip">
+      <span class="impact-chip-icon" style="color:var(--${i.color});">${ICONOS[i.icono]||""}</span>
+      <span>${esc(T(i.frase))}</span>
     </div>`).join("");
+  return `<div class="impact-strip">${items}</div>`;
 }
 
 function renderFooter(){
@@ -259,10 +279,11 @@ function render(){
   const set = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
   set("heroGrid",     renderHero());
   set("metricsGrid",  renderMetricas());
+  set("impactStrip",  renderImpactoStrip());
   set("toolsGrid",    renderStack() + renderHerramientas() + renderDocumentos());
-  set("projectsGrid", renderProyectos());
-  set("aboutGrid",    renderPerfil());
-  set("impactGrid",   renderImpacto());
+  set("casosGrid",       renderCasos());
+  set("solucionesGrid",  renderSoluciones());
+  set("aboutGrid",       renderPerfil());
   set("footerPanel",  renderFooter());
 
   document.querySelectorAll("[data-t]").forEach(el => el.textContent = t(el.dataset.t));
