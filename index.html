@@ -3,7 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Juan David Cano — Portafolio profesional</title>
+<title>Juan David Cano — Business Intelligence, Estrategia y Decisiones</title>
+<meta name="description" content="Portafolio de Juan David Cano. Economista y Negociador Internacional. Convierto datos comerciales en análisis, herramientas y decisiones de negocio.">
+<meta name="author" content="Juan David Cano">
+<meta name="theme-color" content="#0B1120">
+<link rel="canonical" href="https://portafolio-jdc5.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://portafolio-jdc5.vercel.app/">
+<meta property="og:title" content="Juan David Cano — Business Intelligence, Estrategia y Decisiones">
+<meta property="og:description" content="Convierto datos comerciales en análisis, herramientas y decisiones de negocio.">
+<meta property="og:image" content="https://portafolio-jdc5.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -87,6 +100,26 @@ body::after{
 @media (prefers-reduced-motion: reduce){
   .brand-mark .orbit{animation:none;}
 }
+
+
+.btn-soon{opacity:.5;cursor:default;pointer-events:none;}
+.btn-soon:hover{border-color:var(--line);color:var(--text);transform:none;}
+
+/* ---------- Menú móvil ---------- */
+.nav-burger{
+  display:none;width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:var(--panel);cursor:pointer;
+  align-items:center;justify-content:center;flex-shrink:0;padding:0;
+}
+.nav-burger span{display:block;width:16px;height:1.6px;background:var(--text);
+  border-radius:2px;position:relative;transition:transform .2s ease,opacity .2s ease;}
+.nav-burger span::before,.nav-burger span::after{
+  content:"";position:absolute;left:0;width:16px;height:1.6px;background:var(--text);
+  border-radius:2px;transition:transform .2s ease;}
+.nav-burger span::before{top:-5px;} .nav-burger span::after{top:5px;}
+.nav-burger[aria-expanded="true"] span{background:transparent;}
+.nav-burger[aria-expanded="true"] span::before{transform:translateY(5px) rotate(45deg);}
+.nav-burger[aria-expanded="true"] span::after{transform:translateY(-5px) rotate(-45deg);}
 
 /* ---------- Nav ---------- */
 .topnav{position:sticky;top:0;z-index:100;background:var(--nav-bg);
@@ -284,7 +317,17 @@ body::after{
   .footer-mid{border:none;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 }
 @media (max-width:760px){
-  .nav-links{display:none;}
+  .nav-burger{display:flex;}
+  .nav-links{
+    display:none;position:absolute;top:70px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);padding:8px 24px 16px;
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:13px 4px;border-bottom:1px solid var(--line);font-size:14.5px;}
+  .nav-links a:last-child{border-bottom:none;}
+  .topnav{position:sticky;}
   .c-4,.c-6,.c-8,.c-7,.c-5{grid-column:span 12;}
   .c-3{grid-column:span 6;}
   .hero-left{flex-direction:column;align-items:flex-start;gap:18px;}
@@ -319,6 +362,7 @@ body::after{
         <button data-lang="en">EN</button>
       </div>
       <button class="theme-toggle" id="themeToggle" title="Cambiar tema" aria-label="Cambiar tema">☀</button>
+      <button class="nav-burger" id="navBurger" aria-expanded="false" aria-label="Abrir menú"><span></span></button>
     </div>
   </div>
 </nav>
@@ -369,15 +413,15 @@ body::after{
     <div class="panel reveal metric-card c-3" style="--accent:var(--mint);">
       <div class="icon-circle" style="--accent:var(--mint);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v19"/><path d="M16.5 6.5a4 4 0 00-4-2.5h-1a3.5 3.5 0 000 7h1a3.5 3.5 0 010 7h-1a4 4 0 01-4-2.5"/></svg></div>
       <div class="metric-body">
-        <span class="metric-value" data-i18n="m2_value">— </span>
-        <span class="metric-label" data-i18n="m2_label">Volumen de ventas analizado (completar)</span>
+        <span class="metric-value" data-i18n="m2_value">Multicanal</span>
+        <span class="metric-label" data-i18n="m2_label">Presupuesto comercial por canal, regional y punto de venta</span>
       </div>
     </div>
     <div class="panel reveal metric-card c-3" style="--accent:var(--orange-fill);">
       <div class="icon-circle" style="--accent:var(--orange-fill);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange-fill)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5V20h17V9.5"/><path d="M2.5 9.5l1.8-5.2A1.5 1.5 0 015.7 3.3h12.6a1.5 1.5 0 011.4 1L21.5 9.5"/><path d="M9.5 20v-5.5h5V20"/></svg></div>
       <div class="metric-body">
-        <span class="metric-value" data-i18n="m3_value">—</span>
-        <span class="metric-label" data-i18n="m3_label">Puntos de venta monitoreados (completar)</span>
+        <span class="metric-value" data-i18n="m3_value">Dirección</span>
+        <span class="metric-label" data-i18n="m3_label">Reportes ejecutivos para gerencia nacional y presidencia</span>
       </div>
     </div>
     <div class="panel reveal metric-card c-3" style="--accent:var(--cyan);">
@@ -534,7 +578,7 @@ body::after{
         </div>
       </div>
       <div class="proj-footer">
-        <a href="#" class="btn" data-i18n="btn_view_dashboard">Ver dashboard →</a>
+        <span class="btn btn-soon" data-i18n="btn_soon">Próximamente</span>
       </div>
     </div>
   </div>
@@ -587,7 +631,7 @@ body::after{
     </div>
     <div class="footer-socials">
       <a href="https://www.linkedin.com/in/juan-david-cano-quiceno/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">in</a>
-      <a href="#" class="social-btn" title="GitHub">GH</a>
+      <a href="https://github.com/JuanDavidCanoQ" target="_blank" rel="noopener" class="social-btn" title="GitHub">GH</a>
     </div>
   </div>
 
@@ -597,11 +641,41 @@ body::after{
 
 <script>
 /* ---------- Theme ---------- */
-document.getElementById("themeToggle").addEventListener("click", () => {
-  const btn = document.getElementById("themeToggle");
-  const isDark = document.body.classList.toggle("theme-dark");
-  btn.textContent = isDark ? "☀" : "🌙";
+/* almacenamiento tolerante a fallos (modo incógnito, permisos denegados) */
+const store = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+};
+
+const themeBtn = document.getElementById("themeToggle");
+function applyTheme(dark){
+  document.body.classList.toggle("theme-dark", dark);
+  themeBtn.textContent = dark ? "☀" : "🌙";
+  themeBtn.title = dark ? "Cambiar a modo día" : "Cambiar a modo noche";
+}
+applyTheme(store.get("jdc-theme") !== "light");
+themeBtn.addEventListener("click", () => {
+  const dark = !document.body.classList.contains("theme-dark");
+  applyTheme(dark);
+  store.set("jdc-theme", dark ? "dark" : "light");
 });
+
+/* menú móvil */
+(function(){
+  const burger = document.getElementById("navBurger");
+  const links  = document.querySelector(".nav-links");
+  if(!burger || !links) return;
+  burger.addEventListener("click", () => {
+    const open = links.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  links.addEventListener("click", e => {
+    if(e.target.tagName === "A"){
+      links.classList.remove("open");
+      burger.setAttribute("aria-expanded","false");
+    }
+  });
+})();
 
 /* ---------- i18n ---------- */
 const I18N = {
@@ -616,8 +690,8 @@ const I18N = {
     help_text:"Diseño herramientas, modelos y dashboards que convierten grandes volúmenes de datos en información clara y accionable para equipos de marketing, ventas y negocio.",
     link_email:"Escríbeme",
     m1_value:"3+ años", m1_label:"Experiencia en análisis de datos y mercadeo",
-    m2_value:"—", m2_label:"Volumen de ventas analizado (completar)",
-    m3_value:"—", m3_label:"Puntos de venta monitoreados (completar)",
+    m2_value:"Multicanal", m2_label:"Presupuesto comercial por canal, regional y punto de venta",
+    m3_value:"Dirección", m3_label:"Reportes ejecutivos para gerencia nacional y presidencia",
     m4_value:"20.000+", m4_label:"SKUs gestionados en modelos de compra",
     stack_kicker:"Stack principal", stack_others_label:"Otras herramientas:",
     stack_others:"Power Query · SICEX · Euromonitor · IA aplicada",
@@ -633,7 +707,7 @@ const I18N = {
     btn_view_project:"Ver proyecto →",
     p2_title:"Dashboards de análisis", p2_desc:"Dashboards interactivos que convierten los datos en información clara y accionable.",
     p2_i1:"Ventas y margen por canal", p2_i2:"Inventario y rotación", p2_i3:"Desempeño de campañas", p2_i4:"Indicadores comerciales",
-    btn_view_dashboard:"Ver dashboard →",
+    btn_soon:"Próximamente",
     sec_impact:"Impacto en el negocio",
     i1_title:"Mejores decisiones", i1_text:"Información clara y oportuna que reduce la incertidumbre y mejora la toma de decisiones.",
     i2_title:"Optimización", i2_text:"Modelos y análisis que optimizan inventarios, campañas y resultados comerciales.",
@@ -655,8 +729,8 @@ const I18N = {
     help_text:"I design tools, models and dashboards that turn large volumes of data into clear, actionable insight for marketing, sales and business teams.",
     link_email:"Email me",
     m1_value:"3+ years", m1_label:"Experience in data analysis and marketing",
-    m2_value:"—", m2_label:"Sales volume analyzed (to complete)",
-    m3_value:"—", m3_label:"Points of sale monitored (to complete)",
+    m2_value:"Multichannel", m2_label:"Commercial budgeting by channel, region and point of sale",
+    m3_value:"Executive", m3_label:"Executive reporting for country management and presidency",
     m4_value:"20,000+", m4_label:"SKUs managed in purchase models",
     stack_kicker:"Main stack", stack_others_label:"Other tools:",
     stack_others:"Power Query · SICEX · Euromonitor · Applied AI",
@@ -672,7 +746,7 @@ const I18N = {
     btn_view_project:"View project →",
     p2_title:"Analytics dashboards", p2_desc:"Interactive dashboards that turn data into clear, actionable insight.",
     p2_i1:"Sales and margin by channel", p2_i2:"Inventory and turnover", p2_i3:"Campaign performance", p2_i4:"Commercial KPIs",
-    btn_view_dashboard:"View dashboard →",
+    btn_soon:"Coming soon",
     sec_impact:"Business impact",
     i1_title:"Better decisions", i1_text:"Clear, timely information that reduces uncertainty and improves decision making.",
     i2_title:"Optimization", i2_text:"Models and analysis that optimize inventory, campaigns and commercial results.",
@@ -708,9 +782,9 @@ function applyLanguage(lang){
 }
 document.getElementById("langToggle").addEventListener("click", e => {
   const b = e.target.closest("button[data-lang]");
-  if(b) applyLanguage(b.dataset.lang);
+  if(b){ applyLanguage(b.dataset.lang); store.set("jdc-lang", b.dataset.lang); }
 });
-applyLanguage("es");
+applyLanguage(store.get("jdc-lang") === "en" ? "en" : "es");
 
 /* ---------- Scroll progress ---------- */
 (function(){
