@@ -24,7 +24,9 @@ const CONTENIDO = {
   /* -------------------------------------------------------------- TEXTOS */
   t: {
     brand_sub:      { es:"Portafolio profesional",  en:"Professional portfolio" },
-    nav_proyectos:  { es:"Proyectos",               en:"Projects" },
+    nav_inicio:     { es:"Inicio",                  en:"Home" },
+    nav_casos:      { es:"Casos de negocio",         en:"Business Cases" },
+    nav_soluciones: { es:"Soluciones",              en:"Solutions" },
     nav_sobremi:    { es:"Sobre mí",                en:"About" },
     nav_contacto:   { es:"Contacto",                en:"Contact" },
 
@@ -49,7 +51,8 @@ const CONTENIDO = {
     tools_kicker:    { es:"Herramientas propias", en:"Own tools" },
     tools_intro:     { es:"Desarrollo soluciones que automatizan procesos y facilitan la toma de decisiones basadas en datos.",
                        en:"I develop solutions that automate processes and support data-driven decision making." },
-    tools_seeall:    { es:"Ver todas las herramientas →", en:"See all tools →" },
+    tools_seeall:    { es:"Ver todas en Soluciones →", en:"See all in Solutions →" },
+    btn_view_project: { es:"Ver herramienta →", en:"View tool →" },
     pill_prod_suffix:{ es:"en producción", en:"in production" },
     pill_live:       { es:"En uso", en:"Live" },
     pill_soon:       { es:"Próximamente", en:"Coming soon" },
@@ -60,9 +63,11 @@ const CONTENIDO = {
     cv_btn:       { es:"Hoja de vida", en:"Resume" },
     brochure_btn: { es:"Brochure", en:"Brochure" },
 
-    sec_projects: { es:"Proyectos destacados", en:"Featured projects" },
+    sec_casos:      { es:"Casos de negocio", en:"Business cases" },
+    sec_soluciones: { es:"Soluciones", en:"Solutions" },
+    casos_note:     { es:"Casos reales de trabajo, con datos y nombres modificados o sintetizados para proteger información confidencial.",
+                      en:"Real work cases, with data and names modified or synthesized to protect confidential information." },
     sec_about:    { es:"Sobre mí", en:"About me" },
-    sec_impact:   { es:"Impacto en el negocio", en:"Business impact" },
 
     btn_soon:         { es:"Próximamente",   en:"Coming soon" },
 
@@ -123,33 +128,26 @@ const CONTENIDO = {
     */
   ],
 
-  /* ------------------------------------------------------------ PROYECTOS
+  /* -------------------------------------------------------- CASOS DE NEGOCIO
+     Trabajo real (empleador o clientes independientes), estructura y
+     metodología reales — nombres, cifras y datos siempre modificados o
+     sintetizados. Ver casos_note en el bloque `t` para el texto de aviso.
      color: token de acento · preview: clave de PREVIEWS en app.js
-     cta: { label:{es,en}, url } o null para mostrar "Próximamente"        */
-  proyectos: [
-    { num:"01", color:"orange-fill", preview:"matriz",
-      titulo:{ es:"Herramientas construidas", en:"Tools built" },
-      desc:{ es:"Modelos y herramientas para optimizar análisis, evaluación y toma de decisiones.",
-             en:"Models and tools to optimize analysis, evaluation and decision making." },
-      items:[
-        { es:"Matriz de Ponderación", en:"Weighted Decision Matrix" },
-        { es:"Próxima herramienta (completar)", en:"Next tool (to complete)" },
-        { es:"Próxima herramienta (completar)", en:"Next tool (to complete)" }
-      ],
-      cta:{ label:{ es:"Ver proyecto →", en:"View project →" },
-            url:"https://matriz-ponderacion.vercel.app/" } },
-
-    { num:"02", color:"cyan", preview:"dashboard",
-      titulo:{ es:"Dashboards de análisis", en:"Analytics dashboards" },
-      desc:{ es:"Dashboards interactivos que convierten los datos en información clara y accionable.",
-             en:"Interactive dashboards that turn data into clear, actionable insight." },
+     cta: { label:{es,en}, url } o null para mostrar "Próximamente"          */
+  casos: [
+    { num:"01", color:"orange-fill", preview:"dashboard",
+      titulo:{ es:"Análisis comercial — sector motos",
+               en:"Commercial analysis — motorcycle sector" },
+      desc:{ es:"Caso en preparación: análisis de ventas, margen e inventario para un distribuidor del sector de motos. Estructura y metodología reales; en proceso de anonimizar cifras.",
+             en:"Case in preparation: sales, margin and inventory analysis for a motorcycle sector distributor. Real structure and methodology; figures being anonymized." },
       items:[
         { es:"Ventas y margen por canal", en:"Sales and margin by channel" },
         { es:"Inventario y rotación",     en:"Inventory and turnover" },
-        { es:"Desempeño de campañas",     en:"Campaign performance" },
-        { es:"Indicadores comerciales",   en:"Commercial KPIs" }
+        { es:"Desempeño comercial",       en:"Commercial performance" },
+        { es:"Indicadores clave",         en:"Key indicators" }
       ],
       cta:null }
+    /* Próximo caso: agregar aquí con la misma estructura */
   ],
 
   /* --------------------------------------------------------------- PERFIL
@@ -167,23 +165,14 @@ const CONTENIDO = {
                 en:"Economics and International Business · Universidad Icesi" }
   },
 
-  /* -------------------------------------------------------------- IMPACTO */
+  /* -------------------------------------------------- FRANJA DE IMPACTO
+     Reducida a frase corta (sin párrafo): vive dentro de Inicio, no como
+     sección propia. La prueba detallada de estos puntos vive en Casos de
+     negocio, con hechos concretos — esta franja es solo el resumen.       */
   impacto: [
-    { icono:"diana", color:"violet",
-      titulo:{ es:"Mejores decisiones", en:"Better decisions" },
-      texto:{ es:"Información clara y oportuna que reduce la incertidumbre y mejora la toma de decisiones.",
-              en:"Clear, timely information that reduces uncertainty and improves decision making." } },
-    { icono:"tendencia", color:"mint",
-      titulo:{ es:"Optimización", en:"Optimization" },
-      texto:{ es:"Modelos y análisis que optimizan inventarios, campañas y resultados comerciales.",
-              en:"Models and analysis that optimize inventory, campaigns and commercial results." } },
-    { icono:"moneda", color:"orange-fill",
-      titulo:{ es:"Rentabilidad", en:"Profitability" },
-      texto:{ es:"Estrategias basadas en datos que maximizan márgenes y mejoran la rentabilidad del negocio.",
-              en:"Data-driven strategies that maximize margins and improve business profitability." } },
-    { icono:"equipo", color:"cyan",
-      titulo:{ es:"Impacto real", en:"Real impact" },
-      texto:{ es:"Trabajo colaborativo con equipos comerciales, marketing y operaciones.",
-              en:"Collaborative work with sales, marketing and operations teams." } }
+    { icono:"diana",     color:"violet",      frase:{ es:"Mejores decisiones", en:"Better decisions" } },
+    { icono:"tendencia", color:"mint",        frase:{ es:"Optimización",       en:"Optimization" } },
+    { icono:"moneda",    color:"orange-fill", frase:{ es:"Rentabilidad",       en:"Profitability" } },
+    { icono:"equipo",    color:"cyan",        frase:{ es:"Impacto real",       en:"Real impact" } }
   ]
 };
