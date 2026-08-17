@@ -191,19 +191,24 @@ body::after{
 .metric-label{font-size:12px;color:var(--text-dim);line-height:1.45;}
 
 /* ---------- Section kickers ---------- */
+/* Envuelve cada sec-head + su contenido: acota el rango en que el
+   encabezado puede quedar "pegado", así uno se libera antes de que el
+   siguiente empiece a pegarse — sin esto se montaban al hacer scroll. */
+.section-block{margin-top:44px;position:relative;}
 .sec-head{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-  margin:44px 0 16px;flex-wrap:wrap;
+  display:flex;align-items:center;
   position:sticky;top:70px;z-index:40;
   scroll-margin-top:86px;
   background:color-mix(in srgb,var(--panel) 92%,transparent);
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
   padding:13px 18px;border-radius:14px;box-shadow:var(--shadow);
+  min-height:20px;margin-bottom:16px;
 }
 .sec-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);
   position:relative;padding-left:13px;}
 .sec-kicker::before{content:"";position:absolute;left:0;top:1px;bottom:1px;width:3px;border-radius:2px;background:var(--sec-accent,var(--grad-a));}
-.sec-note{font-size:12px;line-height:1.5;color:var(--text-faint);margin:0;max-width:420px;}
+.sec-intro{font-size:12px;line-height:1.6;color:var(--text-faint);
+  margin:-8px 4px 16px 18px;max-width:560px;}
 .sec-link{font-size:12.5px;font-weight:600;color:var(--grad-a);text-decoration:none;display:inline-flex;gap:6px;align-items:center;}
 .sec-link:hover{text-decoration:underline;}
 
