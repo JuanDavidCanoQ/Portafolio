@@ -231,14 +231,19 @@ body::after{
 .stack-others{font-family:var(--mono);font-size:11.5px;color:var(--text-dim);line-height:1.8;}
 
 /* ---------- Highlights card: un ítem de Casos + uno de Soluciones ---------- */
-.highlight-item{display:flex;flex-direction:column;gap:3px;padding:10px 0;}
-.highlight-item:first-of-type{padding-top:4px;}
+.highlight-item{display:flex;flex-direction:column;gap:6px;padding:9px 0;}
+.highlight-item:first-of-type{padding-top:2px;}
 .highlight-item-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
 .highlight-label{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);}
-.highlight-title{font-size:14px;font-weight:800;margin:2px 0 0;color:var(--text);}
-.highlight-type{font-family:var(--mono);font-size:11px;font-weight:600;}
-.highlight-desc{font-size:11.5px;line-height:1.5;color:var(--text-dim);margin:3px 0 6px;}
+.highlight-title{font-size:14px;font-weight:800;margin:2px 0 0;color:var(--text);line-height:1.4;}
+.highlight-type{font-family:var(--mono);font-size:11.5px;font-weight:600;}
 .highlight-divider{height:1px;background:var(--line);}
+
+/* Esta fila (Stack · Lo que he construido · Documentos) debe verse pareja:
+   se fuerza a que las tres compartan la misma altura, sin importar cuál
+   tenga más o menos contenido — la especificidad de ID gana sobre .grid. */
+#toolsGrid{align-items:stretch;}
+#toolsGrid > .panel{display:flex;flex-direction:column;}
 
 /* ---------- CV card ---------- */
 .cv-card{display:flex;flex-direction:column;gap:12px;}
