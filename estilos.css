@@ -148,7 +148,7 @@ body::after{
 .hero-text{display:flex;flex-direction:column;padding-top:6px;}
 .hero-greet{font-size:14px;color:var(--text-faint);margin-bottom:4px;}
 .hero-name{font-size:clamp(30px,3.6vw,40px);font-weight:800;line-height:1.05;margin:0 0 12px;letter-spacing:-.015em;}
-.hero-position{font-size:17px;font-weight:700;color:var(--grad-a);line-height:1.35;margin:0 0 6px;}
+.hero-position{font-size:17px;font-weight:700;color:var(--text);line-height:1.35;margin:0 0 6px;}
 .hero-credentials{font-family:var(--mono);font-size:12.5px;color:var(--text-faint);line-height:1.5;margin:0;
   padding-bottom:16px;border-bottom:1px solid var(--line);}
 .hero-tagline{font-size:14.5px;color:var(--text-dim);line-height:1.65;margin:16px 0 0;}
