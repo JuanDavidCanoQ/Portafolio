@@ -40,8 +40,8 @@ const CONTENIDO = {
                         en:"I turn information into <b>intelligence</b> for better business decisions." },
 
     help_kicker: { es:"¿Cómo puedo ayudar?", en:"How can I help?" },
-    help_text:   { es:"Diseño herramientas, modelos y dashboards que convierten grandes volúmenes de datos en información clara y accionable para equipos de marketing, ventas y negocio.",
-                   en:"I design tools, models and dashboards that turn large volumes of data into clear, actionable insight for marketing, sales and business teams." },
+    help_text:   { es:"¿Un dashboard que por fin conecte ventas, margen e inventario? ¿Comparar varias alternativas con criterios claros antes de decidir? Diseño esas herramientas a la medida del problema real, no plantillas genéricas.",
+                   en:"A dashboard that finally connects sales, margin and inventory? Comparing several alternatives with clear criteria before deciding? I design those tools around the real problem, not generic templates." },
     link_email:  { es:"Escríbeme", en:"Email me" },
 
     stack_kicker:       { es:"Stack principal",   en:"Main stack" },
@@ -50,8 +50,8 @@ const CONTENIDO = {
                           en:"Power Query · SICEX · Euromonitor · Applied AI" },
 
     tools_kicker:    { es:"Herramientas propias", en:"Own tools" },
-    tools_intro:     { es:"Desarrollo soluciones que automatizan procesos y facilitan la toma de decisiones basadas en datos.",
-                       en:"I develop solutions that automate processes and support data-driven decision making." },
+    tools_intro:     { es:"Aplicaciones propias, construidas con IA, para tareas que antes tomaban horas en Excel.",
+                       en:"Own applications, built with AI, for tasks that used to take hours in Excel." },
     tools_seeall:    { es:"Ver todas en Soluciones →", en:"See all in Solutions →" },
     btn_view_project: { es:"Ver herramienta →", en:"View tool →" },
     pill_prod_suffix:{ es:"en producción", en:"in production" },
@@ -97,8 +97,8 @@ const CONTENIDO = {
   metricas: [
     { icono:"maletin", color:"violet",
       valor:{ es:"3+ años", en:"3+ years" },
-      label:{ es:"Experiencia en análisis de datos y mercadeo",
-              en:"Experience in data analysis and marketing" } },
+      label:{ es:"Análisis comercial y BI en retail especializado",
+              en:"Commercial analysis and BI in specialty retail" } },
     { icono:"dolar", color:"mint",
       valor:{ es:"Multicanal", en:"Multichannel" },
       label:{ es:"Presupuesto comercial por canal, regional y punto de venta",
