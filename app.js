@@ -162,9 +162,7 @@ function renderHighlights(){
 
     <div class="highlight-item">
       <span class="highlight-label">${esc(t("highlights_caso_label"))}</span>
-      <h4 class="highlight-title">${esc(T(c.categoria))}</h4>
-      <span class="highlight-type" style="color:var(--orange-fill);">${esc(T(c.tipo))}</span>
-      <p class="highlight-desc">${esc(T(c.desc))}</p>
+      <h4 class="highlight-title">${esc(T(c.categoria))}<span class="highlight-type" style="color:var(--orange-fill);"> · ${esc(T(c.tipo))}</span></h4>
       <a href="#casos" class="sec-link">${esc(t("casos_seeall"))}</a>
     </div>
 
@@ -175,9 +173,7 @@ function renderHighlights(){
         <span class="highlight-label">${esc(t("highlights_tool_label"))}</span>
         <span class="pill${toolLive ? "" : " pill-soon"}">${esc(toolLive ? t("pill_live") : t("pill_soon"))}</span>
       </div>
-      <h4 class="highlight-title">${esc(T(h.categoria))}</h4>
-      <span class="highlight-type" style="color:var(--cyan);">${esc(h.nombre)}</span>
-      <p class="highlight-desc">${esc(T(h.desc))}</p>
+      <h4 class="highlight-title">${esc(T(h.categoria))}<span class="highlight-type" style="color:var(--cyan);"> · ${esc(h.nombre)}</span></h4>
       <a href="#soluciones" class="sec-link">${esc(t("tools_seeall"))}</a>
     </div>
   </div>`;
