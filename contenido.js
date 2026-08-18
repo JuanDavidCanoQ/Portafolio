@@ -100,15 +100,15 @@ const CONTENIDO = {
       label:{ es:"Análisis comercial y BI en retail especializado",
               en:"Commercial analysis and BI in specialty retail" } },
     { icono:"dolar", color:"mint",
-      valor:{ es:"Multicanal", en:"Multichannel" },
-      label:{ es:"Presupuesto comercial por canal, regional y punto de venta",
-              en:"Commercial budgeting by channel, region and point of sale" } },
+      valor:{ es:"30+", en:"30+" },
+      label:{ es:"Puntos de venta bajo el modelo de presupuestación multicanal que diseño",
+              en:"Points of sale under the multichannel budgeting model I design" } },
     { icono:"tienda", color:"orange-fill",
-      valor:{ es:"Dirección", en:"Executive" },
-      label:{ es:"Reportes ejecutivos para gerencia nacional y presidencia",
-              en:"Executive reporting for country management and presidency" } },
+      valor:{ es:"20+", en:"20+" },
+      label:{ es:"Categorías de producto en seguimiento comercial",
+              en:"Product categories under commercial tracking" } },
     { icono:"caja", color:"cyan",
-      valor:{ es:"20.000+", en:"20,000+" },
+      valor:{ es:"10.000+", en:"10,000+" },
       label:{ es:"SKUs gestionados en modelos de compra",
               en:"SKUs managed in purchase models" } }
   ],
@@ -177,10 +177,22 @@ const CONTENIDO = {
      Reducida a frase corta (sin párrafo): vive dentro de Inicio, no como
      sección propia. La prueba detallada de estos puntos vive en Casos de
      negocio, con hechos concretos — esta franja es solo el resumen.       */
+  /* Cada frase está emparejada por color con la métrica que la origina
+     (m1 violeta -> chip 1 violeta, m2 verde -> chip 2 verde, etc.) para
+     que se lea como "esta cifra se traduce en esto", no como adjetivos
+     sueltos.                                                            */
   impacto: [
-    { icono:"diana",     color:"violet",      frase:{ es:"Mejores decisiones", en:"Better decisions" } },
-    { icono:"tendencia", color:"mint",        frase:{ es:"Optimización",       en:"Optimization" } },
-    { icono:"moneda",    color:"orange-fill", frase:{ es:"Rentabilidad",       en:"Profitability" } },
-    { icono:"equipo",    color:"cyan",        frase:{ es:"Impacto real",       en:"Real impact" } }
+    { icono:"diana", color:"violet",
+      frase:{ es:"Decisiones con datos, no con intuición",
+              en:"Decisions based on data, not guesswork" } },
+    { icono:"dolar", color:"mint",
+      frase:{ es:"Presupuesto sin sorpresas",
+              en:"Budget without surprises" } },
+    { icono:"tienda", color:"orange-fill",
+      frase:{ es:"Visión completa del portafolio",
+              en:"Full visibility across the portfolio" } },
+    { icono:"caja", color:"cyan",
+      frase:{ es:"Compras ajustadas a la demanda real",
+              en:"Purchasing aligned with real demand" } }
   ]
 };
