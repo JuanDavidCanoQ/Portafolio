@@ -132,7 +132,7 @@ body::after{
 .panel:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover);}
 
 /* ---------- Grid ---------- */
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start;}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:stretch;}
 .c-12{grid-column:span 12;} .c-8{grid-column:span 8;} .c-7{grid-column:span 7;}
 .c-6{grid-column:span 6;} .c-5{grid-column:span 5;} .c-4{grid-column:span 4;} .c-3{grid-column:span 3;}
 
@@ -242,9 +242,6 @@ body::after{
 /* Esta fila (Stack · Lo que he construido · Documentos) debe verse pareja:
    se fuerza a que las tres compartan la misma altura, sin importar cuál
    tenga más o menos contenido — la especificidad de ID gana sobre .grid. */
-#toolsGrid{align-items:stretch;}
-#toolsGrid > .panel{display:flex;flex-direction:column;}
-
 /* ---------- CV card ---------- */
 .cv-card{display:flex;flex-direction:column;gap:12px;}
 .cv-doc{display:flex;align-items:center;gap:12px;}
@@ -253,20 +250,6 @@ body::after{
 .cv-desc{font-size:12.5px;line-height:1.55;color:var(--text-dim);margin:0;}
 .cv-btns{display:flex;flex-direction:column;gap:8px;margin-top:auto;}
 .cv-btns .btn{width:100%;font-size:12.5px;padding:11px 16px;}
-
-/* ---------- Project cards ---------- */
-.proj-card{--accent:var(--orange-fill);border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));}
-.proj-card.cyan{--accent:var(--cyan);}
-.proj-num{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--accent);margin-bottom:8px;}
-.proj-title{font-size:19px;font-weight:800;margin:0 0 8px;}
-.proj-desc{font-size:12.5px;line-height:1.6;color:var(--text-dim);margin:0 0 14px;}
-.proj-inner{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
-.proj-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
-.proj-list li{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--text-dim);line-height:1.45;}
-.proj-list .check{color:var(--accent);flex-shrink:0;font-size:11px;margin-top:1px;}
-.proj-preview{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--panel-2);}
-.proj-preview svg{width:100%;height:100%;display:block;}
-.proj-footer{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 
 /* ---------- Impact cards ---------- */
 .impact-card{display:flex;gap:14px;align-items:flex-start;}
@@ -317,7 +300,6 @@ body::after{
   .c-4,.c-6,.c-8,.c-7,.c-5{grid-column:span 12;}
   .c-3{grid-column:span 6;}
   .hero-left{flex-direction:column;align-items:flex-start;gap:18px;}
-  .proj-inner{grid-template-columns:1fr;}
   .tool-mini{flex-direction:column;} .tool-mini-thumb{width:100%;height:110px;}
 }
 
