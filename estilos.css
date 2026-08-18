@@ -230,18 +230,15 @@ body::after{
 .stack-others-label{font-size:11.5px;color:var(--text-faint);margin-bottom:8px;}
 .stack-others{font-family:var(--mono);font-size:11.5px;color:var(--text-dim);line-height:1.8;}
 
-/* ---------- Tools card ---------- */
-.tool-intro{font-size:13px;line-height:1.6;color:var(--text-dim);margin:0 0 16px;}
-.tool-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
-.tool-list li{display:flex;align-items:center;gap:12px;padding:13px 15px;
-  background:var(--panel-2);border:1px solid var(--line);border-radius:12px;
-  transition:border-color .18s ease;}
-.tool-list li:hover{border-color:var(--orange-fill);}
-.tool-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);flex-shrink:0;}
-.tool-list-body{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0;}
-.tool-list-name{font-size:13.5px;font-weight:700;color:var(--text);text-decoration:none;}
-.tool-list-name:hover{color:var(--orange);}
-.tool-list-desc{font-size:11.5px;line-height:1.5;color:var(--text-dim);}
+/* ---------- Highlights card: un ítem de Casos + uno de Soluciones ---------- */
+.highlight-item{display:flex;flex-direction:column;gap:4px;padding:14px 0;}
+.highlight-item:first-of-type{padding-top:4px;}
+.highlight-item-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.highlight-label{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);}
+.highlight-title{font-size:14px;font-weight:800;margin:2px 0 0;color:var(--text);}
+.highlight-type{font-family:var(--mono);font-size:11px;font-weight:600;}
+.highlight-desc{font-size:12px;line-height:1.55;color:var(--text-dim);margin:4px 0 8px;}
+.highlight-divider{height:1px;background:var(--line);}
 
 /* ---------- CV card ---------- */
 .cv-card{display:flex;flex-direction:column;gap:12px;}
