@@ -132,7 +132,7 @@ body::after{
 .panel:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover);}
 
 /* ---------- Grid ---------- */
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start;}
 .c-12{grid-column:span 12;} .c-8{grid-column:span 8;} .c-7{grid-column:span 7;}
 .c-6{grid-column:span 6;} .c-5{grid-column:span 5;} .c-4{grid-column:span 4;} .c-3{grid-column:span 3;}
 
@@ -231,13 +231,13 @@ body::after{
 .stack-others{font-family:var(--mono);font-size:11.5px;color:var(--text-dim);line-height:1.8;}
 
 /* ---------- Highlights card: un ítem de Casos + uno de Soluciones ---------- */
-.highlight-item{display:flex;flex-direction:column;gap:4px;padding:14px 0;}
+.highlight-item{display:flex;flex-direction:column;gap:3px;padding:10px 0;}
 .highlight-item:first-of-type{padding-top:4px;}
 .highlight-item-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
 .highlight-label{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);}
 .highlight-title{font-size:14px;font-weight:800;margin:2px 0 0;color:var(--text);}
 .highlight-type{font-family:var(--mono);font-size:11px;font-weight:600;}
-.highlight-desc{font-size:12px;line-height:1.55;color:var(--text-dim);margin:4px 0 8px;}
+.highlight-desc{font-size:11.5px;line-height:1.5;color:var(--text-dim);margin:3px 0 6px;}
 .highlight-divider{height:1px;background:var(--line);}
 
 /* ---------- CV card ---------- */
