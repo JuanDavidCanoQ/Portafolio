@@ -149,32 +149,37 @@ function renderStack(){
   </div>`;
 }
 
-function renderHerramientas(){
-  const items = CONTENIDO.herramientas.map(h => {
-    const live = h.estado === "live";
-    const nombre = (live && h.url)
-      ? `<a href="${h.url}" target="_blank" rel="noopener" class="tool-list-name">${esc(h.nombre)}</a>`
-      : `<span class="tool-list-name">${esc(h.nombre)}</span>`;
-    return `
-    <li>
-      <span class="tool-dot" style="${live ? "" : "background:var(--text-faint);"}"></span>
-      <div class="tool-list-body">
-        ${nombre}
-        <span class="tool-list-desc">${esc(T(h.desc))}</span>
-      </div>
-      <span class="pill${live ? "" : " pill-soon"}">${esc(live ? t("pill_live") : t("pill_soon"))}</span>
-    </li>`;
-  }).join("");
-  const nLive = CONTENIDO.herramientas.filter(h => h.estado === "live").length;
+/* Un ítem real de Casos y uno de Soluciones, con su propio enlace cada uno,
+   para que Inicio cuente la historia completa y no solo la mitad.       */
+function renderHighlights(){
+  const c = CONTENIDO.casos[0];
+  const h = CONTENIDO.herramientas[0];
+  const toolLive = h.estado === "live";
+
   return `
   <div class="panel reveal c-5" style="--accent:var(--orange-fill);">
-    <span class="card-kicker" style="--accent:var(--orange-fill);">
-      <span>${esc(t("tools_kicker"))}</span>
-      <span class="pill">${nLive} ${esc(t("pill_prod_suffix"))}</span>
-    </span>
-    <p class="tool-intro">${esc(t("tools_intro"))}</p>
-    <ul class="tool-list">${items}</ul>
-    <a href="#soluciones" class="sec-link" style="margin-top:14px;display:inline-flex;">${esc(t("tools_seeall"))}</a>
+    <span class="card-kicker" style="--accent:var(--orange-fill);"><span>${esc(t("highlights_kicker"))}</span></span>
+
+    <div class="highlight-item">
+      <span class="highlight-label">${esc(t("highlights_caso_label"))}</span>
+      <h4 class="highlight-title">${esc(T(c.categoria))}</h4>
+      <span class="highlight-type" style="color:var(--orange-fill);">${esc(T(c.tipo))}</span>
+      <p class="highlight-desc">${esc(T(c.desc))}</p>
+      <a href="#casos" class="sec-link">${esc(t("casos_seeall"))}</a>
+    </div>
+
+    <div class="highlight-divider"></div>
+
+    <div class="highlight-item">
+      <div class="highlight-item-top">
+        <span class="highlight-label">${esc(t("highlights_tool_label"))}</span>
+        <span class="pill${toolLive ? "" : " pill-soon"}">${esc(toolLive ? t("pill_live") : t("pill_soon"))}</span>
+      </div>
+      <h4 class="highlight-title">${esc(T(h.categoria))}</h4>
+      <span class="highlight-type" style="color:var(--cyan);">${esc(h.nombre)}</span>
+      <p class="highlight-desc">${esc(T(h.desc))}</p>
+      <a href="#soluciones" class="sec-link">${esc(t("tools_seeall"))}</a>
+    </div>
   </div>`;
 }
 
@@ -300,7 +305,7 @@ function render(){
   set("heroGrid",     renderHero());
   set("metricsGrid",  renderMetricas());
   set("impactStrip",  renderImpactoStrip());
-  set("toolsGrid",    renderStack() + renderHerramientas() + renderDocumentos());
+  set("toolsGrid",    renderStack() + renderHighlights() + renderDocumentos());
   set("casosGrid",         renderCasos());
   set("solucionesGrid",    renderSoluciones());
   set("investigacionGrid", renderInvestigacion());
