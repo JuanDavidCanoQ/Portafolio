@@ -49,12 +49,12 @@ const CONTENIDO = {
     stack_others:       { es:"Power Query · SICEX · Euromonitor · IA aplicada",
                           en:"Power Query · SICEX · Euromonitor · Applied AI" },
 
-    tools_kicker:    { es:"Herramientas propias", en:"Own tools" },
-    tools_intro:     { es:"Aplicaciones propias, construidas con IA, para tareas que antes tomaban horas en Excel.",
-                       en:"Own applications, built with AI, for tasks that used to take hours in Excel." },
+    highlights_kicker:    { es:"Lo que he construido", en:"What I've built" },
+    highlights_caso_label:{ es:"Caso destacado", en:"Featured case" },
+    highlights_tool_label:{ es:"Herramienta propia", en:"Own tool" },
+    casos_seeall:         { es:"Ver casos de negocio →", en:"See business cases →" },
     tools_seeall:    { es:"Ver todas en Soluciones →", en:"See all in Solutions →" },
     btn_view_project: { es:"Ver herramienta →", en:"View tool →" },
-    pill_prod_suffix:{ es:"en producción", en:"in production" },
     pill_live:       { es:"En uso", en:"Live" },
     pill_soon:       { es:"Próximamente", en:"Coming soon" },
 
