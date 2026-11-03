@@ -1,0 +1,16 @@
+# Lista blanca: se ignora todo salvo lo listado abajo.
+# Para publicar un archivo nuevo hay que agregarlo aquí a propósito (frente R5).
+/*
+
+# Repositorio
+!/.gitignore
+!/README.md
+!/LICENSE
+
+# Sitio
+!/index.html
+!/contenido.js
+!/app.js
+!/estilos.css
+!/og-image.png
+!/foto-juan-david.jpg

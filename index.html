@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan David Cano — Inteligencia Comercial y Planeación de Ventas</title>
+<meta name="description" content="Portafolio de Juan David Cano, analista de inteligencia comercial y planeación de ventas: Business Intelligence, pronóstico y econometría, y automatización con SQL, Python e IA.">
+<meta name="author" content="Juan David Cano">
+<meta name="theme-color" content="#0B1120">
+<link rel="canonical" href="https://jdc-portafolio.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jdc-portafolio.vercel.app/">
+<meta property="og:title" content="Juan David Cano — Inteligencia Comercial y Planeación de Ventas">
+<meta property="og:description" content="Convierto procesos manuales de planeación y reporte comercial en modelos y herramientas confiables, con conocimiento del negocio y métodos cuantitativos.">
+<meta property="og:image" content="https://jdc-portafolio.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Juan David Cano — Inteligencia Comercial y Planeación de Ventas">
+<meta name="twitter:description" content="Convierto procesos manuales de planeación y reporte comercial en modelos y herramientas confiables, con conocimiento del negocio y métodos cuantitativos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body class="theme-dark">
+
+<canvas id="particles-bg" aria-hidden="true"></canvas>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#" class="brand-block">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="ring"></span><span class="core"></span><span class="orbit"><i></i></span>
+      </span>
+      <span class="brand-sub" data-t="brand_sub">Portafolio profesional</span>
+    </a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#" data-t="nav_inicio">Inicio</a>
+        <a href="#casos" data-t="nav_casos">Casos de negocio</a>
+        <a href="#soluciones" data-t="nav_soluciones">Soluciones</a>
+        <a href="#iniciativas" data-t="nav_iniciativas">Iniciativas</a>
+        <a href="#investigacion" data-t="nav_investigacion">Investigación</a>
+        <a href="#sobremi" data-t="nav_sobremi">Sobre mí</a>
+        <a href="#contacto" data-t="nav_contacto">Contacto</a>
+      </div>
+      <div class="lang-toggle" id="langToggle">
+        <button data-lang="es" class="active">ES</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Cambiar tema" aria-label="Cambiar tema">☀</button>
+      <button class="nav-burger" id="navBurger" aria-expanded="false" aria-label="Abrir menú"><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- Presentación y contacto -->
+  <div class="hero-grid" id="heroGrid"></div>
+
+  <!-- Métricas -->
+  <div class="grid" id="metricsGrid" style="margin-top:22px;"></div>
+
+  <!-- Franja de impacto (resumen corto, ya no es sección aparte) -->
+  <div id="impactStrip"></div>
+
+  <!-- Stack · Herramientas · Documentos -->
+  <div class="grid" id="toolsGrid" style="margin-top:16px;"></div>
+
+  <!-- Casos de negocio -->
+  <div class="section-block">
+    <div class="sec-head" id="casos" style="--sec-accent:var(--orange-fill);">
+      <span class="sec-kicker" data-t="sec_casos">Casos de negocio</span>
+    </div>
+    <p class="sec-intro" data-t="casos_note">Casos reales de trabajo, con datos y nombres modificados o sintetizados para proteger información confidencial.</p>
+    <div class="grid" id="casosGrid"></div>
+  </div>
+
+  <!-- Soluciones -->
+  <div class="section-block">
+    <div class="sec-head" id="soluciones" style="--sec-accent:var(--cyan);">
+      <span class="sec-kicker" data-t="sec_soluciones">Soluciones</span>
+    </div>
+    <div class="grid" id="solucionesGrid"></div>
+  </div>
+
+  <!-- Proyectos e iniciativas -->
+  <div class="section-block">
+    <div class="sec-head" id="iniciativas" style="--sec-accent:var(--rose);">
+      <span class="sec-kicker" data-t="sec_iniciativas">Proyectos e iniciativas</span>
+    </div>
+    <p class="sec-intro" data-t="iniciativas_note">Proyectos propios y en equipo fuera de mi empleo, con su estado real.</p>
+    <div class="grid" id="iniciativasGrid"></div>
+  </div>
+
+  <!-- Investigación -->
+  <div class="section-block">
+    <div class="sec-head" id="investigacion" style="--sec-accent:var(--gold);">
+      <span class="sec-kicker" data-t="sec_investigacion">Investigación</span>
+    </div>
+    <p class="sec-intro" data-t="investigacion_note">Análisis de mercado, tendencias e investigaciones propias.</p>
+    <div class="grid" id="investigacionGrid"></div>
+  </div>
+
+  <!-- Sobre mí -->
+  <div class="section-block">
+    <div class="sec-head" id="sobremi" style="--sec-accent:var(--violet);">
+      <span class="sec-kicker" data-t="sec_about">Sobre mí</span>
+    </div>
+    <div class="grid" id="aboutGrid"></div>
+  </div>
+
+  <!-- Contacto -->
+  <div class="panel reveal footer-panel" id="contacto" style="--accent:var(--grad-a);">
+    <div id="footerPanel" style="display:contents;"></div>
+  </div>
+
+  <div class="copyright">© 2026 Juan David Cano</div>
+
+</div>
+
+<!-- Recuadro «Más información» (lo llena app.js) -->
+<div class="modal-back" id="detalleBack" aria-hidden="true">
+  <div class="modal" id="detalleBox" role="dialog" aria-modal="true" aria-labelledby="detalleTitulo"></div>
+</div>
+
+<script src="contenido.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

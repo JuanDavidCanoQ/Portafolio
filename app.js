@@ -1,0 +1,627 @@
+/* ==========================================================================
+   APP — Portafolio Juan David Cano
+   Renderiza el sitio a partir de CONTENIDO (contenido.js).
+   Para cambiar textos o agregar contenido, editar contenido.js, no este archivo.
+   ========================================================================== */
+
+/* ------------------------------------------------- almacenamiento seguro */
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+};
+
+let LANG = store.get("jdc-lang") === "en" ? "en" : "es";
+
+/* Devuelve el texto en el idioma activo. Acepta string plano u objeto {es,en}. */
+const T = v => (v && typeof v === "object") ? (v[LANG] ?? v.es ?? "") : (v ?? "");
+/* Atajo para el diccionario de textos sueltos */
+const t = k => T(CONTENIDO.t[k]);
+
+const esc = s => String(s).replace(/[&<>"']/g, m =>
+  ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+
+/* ---------------------------------------------------------------- ICONOS */
+const svg = inner =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+        stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+
+const ICONOS = {
+  maletin:  svg('<rect x="2.5" y="7" width="19" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M2.5 12.5h19"/>'),
+  dolar:    svg('<path d="M12 2.5v19"/><path d="M16.5 6.5a4 4 0 00-4-2.5h-1a3.5 3.5 0 000 7h1a3.5 3.5 0 010 7h-1a4 4 0 01-4-2.5"/>'),
+  tienda:   svg('<path d="M3.5 9.5V20h17V9.5"/><path d="M2.5 9.5l1.8-5.2A1.5 1.5 0 015.7 3.3h12.6a1.5 1.5 0 011.4 1L21.5 9.5"/><path d="M9.5 20v-5.5h5V20"/>'),
+  caja:     svg('<path d="M20.5 7.5L12 3 3.5 7.5v9L12 21l8.5-4.5v-9z"/><path d="M3.5 7.5L12 12l8.5-4.5M12 12v9"/>'),
+  grafico:  svg('<path d="M3 3v18h18"/><path d="M7 15l3.5-4 3 2.5L20 7"/>'),
+  diana:    svg('<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>'),
+  tendencia:svg('<path d="M3 17l5.5-5.5 3.5 3L21 5.5"/><path d="M15.5 5.5H21v5.5"/>'),
+  moneda:   svg('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M14.5 9.8a2.6 2.6 0 00-2.5-1.5h-.6a2.1 2.1 0 000 4.2h1.2a2.1 2.1 0 010 4.2H11a2.6 2.6 0 01-2.5-1.5"/>'),
+  equipo:   svg('<circle cx="9" cy="8" r="3.4"/><path d="M2.8 20a6.2 6.2 0 0112.4 0"/><path d="M16.2 5.1a3.4 3.4 0 010 5.8M17.6 20a6.2 6.2 0 00-1.6-4.2"/>'),
+  excel:    svg('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>'),
+  barras:   svg('<path d="M3 21h18"/><rect x="5" y="12" width="3.5" height="7" rx="1"/><rect x="10.25" y="7" width="3.5" height="12" rx="1"/><rect x="15.5" y="3" width="3.5" height="16" rx="1"/>'),
+  dax:      svg('<path d="M4 20c2 0 2.6-1 3.1-4l1.8-9C9.4 4 10 3 12 3"/><path d="M5 10h6"/><path d="M14 11l6 7M20 11l-6 7"/>'),
+  codigo:   svg('<path d="M8.5 7l-5 5 5 5M15.5 7l5 5-5 5"/><path d="M13.5 4.5l-3 15"/>'),
+  ia:       svg('<path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>'),
+  sap:      svg('<rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4M7 9h4M7 12h6"/>'),
+  db:       svg('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.66 3.58 3 8 3s8-1.34 8-3v-13"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/>'),
+  sobre:    svg('<rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 6.5L21 6"/>'),
+  pin:      svg('<path d="M20 10.5c0 6-8 11.5-8 11.5S4 16.5 4 10.5a8 8 0 1116 0z"/><circle cx="12" cy="10.5" r="2.8"/>'),
+  doc:      svg('<path d="M14 2.5H7a2 2 0 00-2 2v15a2 2 0 002 2h10a2 2 0 002-2V7.5z"/><path d="M14 2.5v5h5"/>')
+};
+
+/* ------------------------------------------------- PREVISUALIZACIONES SVG */
+const PREVIEWS = {
+  matriz: `<svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+    <rect width="220" height="150" fill="var(--panel-2)"/>
+    <rect x="0" y="0" width="220" height="18" fill="var(--panel)"/>
+    <rect x="12" y="30" width="70" height="6" rx="3" fill="var(--text-faint)" opacity=".6"/>
+    <rect x="12" y="46" width="196" height="6" rx="3" fill="var(--panel)"/>
+    <rect x="12" y="46" width="120" height="6" rx="3" fill="var(--grad-a)"/>
+    <circle cx="132" cy="49" r="5" fill="var(--grad-a)"/>
+    <rect x="12" y="70" width="196" height="9" rx="4.5" fill="var(--panel)"/>
+    <rect x="12" y="70" width="150" height="9" rx="4.5" fill="var(--mint)"/>
+    <rect x="12" y="87" width="196" height="9" rx="4.5" fill="var(--panel)"/>
+    <rect x="12" y="87" width="118" height="9" rx="4.5" fill="var(--orange-fill)"/>
+    <rect x="12" y="104" width="196" height="9" rx="4.5" fill="var(--panel)"/>
+    <rect x="12" y="104" width="92" height="9" rx="4.5" fill="var(--orange-fill)"/>
+    <rect x="12" y="121" width="196" height="9" rx="4.5" fill="var(--panel)"/>
+    <rect x="12" y="121" width="64" height="9" rx="4.5" fill="var(--orange-fill)"/>
+  </svg>`,
+
+  vobo: `<svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+    <rect width="220" height="150" fill="var(--panel-2)"/>
+    <rect x="14" y="58" width="56" height="34" rx="8" fill="var(--panel)"/>
+    <rect x="24" y="70" width="36" height="5" rx="2.5" fill="var(--text-faint)" opacity=".6"/>
+    <rect x="24" y="79" width="24" height="5" rx="2.5" fill="var(--text-faint)" opacity=".4"/>
+    <path d="M70 75h26" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="96" y="55" width="40" height="40" rx="10" fill="var(--panel)" stroke="var(--rose)" stroke-width="2"/>
+    <path d="M108 75l6 6 11-12" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M136 75c14 0 14-38 30-38M136 75h30M136 75c14 0 14 38 30 38" fill="none" stroke="var(--line-strong)" stroke-width="2"/>
+    <rect x="166" y="28" width="40" height="18" rx="9" fill="var(--mint)" opacity=".85"/>
+    <rect x="166" y="66" width="40" height="18" rx="9" fill="var(--gold)" opacity=".85"/>
+    <rect x="166" y="104" width="40" height="18" rx="9" fill="var(--red)" opacity=".85"/>
+  </svg>`,
+
+  norvia: `<svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+    <rect width="220" height="150" fill="var(--panel-2)"/>
+    <rect x="22" y="22" width="76" height="106" rx="8" fill="var(--panel)"/>
+    <rect x="34" y="38" width="44" height="6" rx="3" fill="var(--rose)"/>
+    <rect x="34" y="54" width="52" height="5" rx="2.5" fill="var(--text-faint)" opacity=".5"/>
+    <rect x="34" y="66" width="40" height="5" rx="2.5" fill="var(--text-faint)" opacity=".5"/>
+    <rect x="34" y="78" width="48" height="5" rx="2.5" fill="var(--text-faint)" opacity=".5"/>
+    <circle cx="74" cy="108" r="11" fill="none" stroke="var(--mint)" stroke-width="2.5"/>
+    <path d="M69 108l4 4 7-8" fill="none" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="140" cy="44" r="9" fill="var(--panel)" stroke="var(--grad-a)" stroke-width="2"/>
+    <circle cx="184" cy="64" r="9" fill="var(--panel)" stroke="var(--grad-a)" stroke-width="2"/>
+    <circle cx="146" cy="96" r="9" fill="var(--panel)" stroke="var(--grad-a)" stroke-width="2"/>
+    <circle cx="188" cy="112" r="9" fill="var(--panel)" stroke="var(--grad-a)" stroke-width="2"/>
+    <path d="M98 75L131 46M98 75l77-10M98 75l39 19M98 75l81 35" stroke="var(--line-strong)" stroke-width="1.6" stroke-dasharray="3 4"/>
+  </svg>`,
+
+  dashboard: `<svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+    <rect width="220" height="150" fill="var(--panel-2)"/>
+    <rect x="10" y="10" width="62" height="30" rx="6" fill="var(--panel)"/>
+    <rect x="78" y="10" width="62" height="30" rx="6" fill="var(--panel)"/>
+    <rect x="146" y="10" width="62" height="30" rx="6" fill="var(--panel)"/>
+    <rect x="18" y="20" width="30" height="4" rx="2" fill="var(--text-faint)" opacity=".6"/>
+    <rect x="18" y="29" width="42" height="6" rx="3" fill="var(--mint)"/>
+    <rect x="86" y="20" width="30" height="4" rx="2" fill="var(--text-faint)" opacity=".6"/>
+    <rect x="86" y="29" width="34" height="6" rx="3" fill="var(--cyan)"/>
+    <rect x="154" y="20" width="30" height="4" rx="2" fill="var(--text-faint)" opacity=".6"/>
+    <rect x="154" y="29" width="38" height="6" rx="3" fill="var(--grad-a)"/>
+    <rect x="10" y="48" width="198" height="44" rx="6" fill="var(--panel)"/>
+    <polyline points="20,84 48,72 76,76 104,60 132,64 160,52 198,58" fill="none"
+      stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="10" y="100" width="96" height="40" rx="6" fill="var(--panel)"/>
+    <circle cx="58" cy="120" r="13" fill="none" stroke="var(--cyan)" stroke-width="6"/>
+    <circle cx="58" cy="120" r="13" fill="none" stroke="var(--orange-fill)" stroke-width="6" stroke-dasharray="26 60"/>
+    <rect x="112" y="100" width="96" height="40" rx="6" fill="var(--panel)"/>
+    <rect x="120" y="108" width="50" height="5" rx="2.5" fill="var(--grad-a)"/>
+    <rect x="120" y="118" width="70" height="5" rx="2.5" fill="var(--cyan)"/>
+    <rect x="120" y="128" width="38" height="5" rx="2.5" fill="var(--mint)"/>
+  </svg>`
+};
+
+/* ====================================================== RENDER DE BLOQUES */
+const S = CONTENIDO.sitio;
+
+function renderHero(){
+  return `
+  <div class="panel reveal hero-left" style="--accent:var(--grad-a);">
+    <div class="avatar-wrap">
+      <div class="avatar-slot"><img src="${S.foto}" alt="${esc(S.nombre)}"></div>
+      <span class="avatar-dot"></span>
+    </div>
+    <div class="hero-text">
+      <span class="hero-greet">${esc(t("hero_greet"))}</span>
+      <h1 class="hero-name">${esc(S.nombre)}</h1>
+      <p class="hero-position">${esc(t("hero_position"))}</p>
+      <p class="hero-focus">${esc(t("hero_focus"))}</p>
+      <p class="hero-credentials">${esc(t("hero_credentials"))}</p>
+      <p class="hero-tagline">${t("hero_tagline")}</p>
+    </div>
+  </div>
+
+  <div class="panel reveal help-card" style="--accent:var(--grad-b);">
+    <div class="help-top">
+      <div class="icon-circle" style="--accent:var(--grad-a);color:var(--grad-a);">${ICONOS.grafico}</div>
+      <div>
+        <span class="help-kicker">${esc(t("help_kicker"))}</span>
+        <p class="help-text">${esc(t("help_text"))}</p>
+      </div>
+    </div>
+    <div class="help-divider"></div>
+    <div class="help-links">
+      <a href="${S.linkedin}" target="_blank" rel="noopener" class="help-link"><span class="ico">in</span>LinkedIn</a>
+      <a href="#" id="emailBtn" class="help-link"><span class="ico">${ICONOS.sobre}</span>${esc(t("link_email"))}</a>
+    </div>
+  </div>`;
+}
+
+function renderMetricas(){
+  return CONTENIDO.metricas.map(m => `
+    <div class="panel reveal metric-card c-3" style="--accent:var(--${m.color});">
+      <div class="icon-circle" style="--accent:var(--${m.color});color:var(--${m.color});">${ICONOS[m.icono]||""}</div>
+      <div class="metric-body">
+        <span class="metric-value">${esc(T(m.valor))}</span>
+        <span class="metric-label">${esc(T(m.label))}</span>
+      </div>
+    </div>`).join("");
+}
+
+function renderStack(){
+  const items = CONTENIDO.stack.map(s => `
+    <div class="stack-item">
+      <div class="stack-logo" style="color:var(--${s.color});">${ICONOS[s.icono]||""}</div>
+      <span class="stack-name">${esc(T(s.nombre))}</span>
+    </div>`).join("");
+  return `
+  <div class="panel reveal c-12" style="--accent:var(--grad-a);">
+    <span class="card-kicker" style="--accent:var(--grad-a);"><span>${esc(t("stack_kicker"))}</span></span>
+    <div class="stack-wrap">
+      <div class="stack-grid">${items}</div>
+      <div class="stack-details">${(CONTENIDO.stack_detalle||[]).map(d => `
+        <div class="stack-line">
+          <div class="stack-others-label">${esc(T(d.label))}</div>
+          <div class="stack-others">${esc(T(d.texto))}</div>
+        </div>`).join("")}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* Tres piezas destacadas (una por sección: caso, herramienta, iniciativa),
+   cada una con su estado y su enlace a la sección completa.             */
+function renderHighlights(){
+  const c = CONTENIDO.casos[0];
+  const h = CONTENIDO.herramientas[0];
+  const v = (CONTENIDO.iniciativas||[])[0];
+  const items = [
+    { label:t("highlights_caso_label"), live:!!(c.cta && c.cta.url), pillOn:t("pill_published"),
+      cat:T(c.categoria), name:T(c.tipo), color:"--orange-fill", href:"#casos", seeall:t("casos_seeall") },
+    { label:t("highlights_tool_label"), live:h.estado === "live", pillOn:t("pill_live"),
+      cat:T(h.categoria), name:T(h.nombre), color:"--cyan", href:"#soluciones", seeall:t("tools_seeall") }
+  ];
+  if(v) items.push({ label:t("highlights_ini_label"), live:!!v.url, pillOn:t("pill_demo"),
+      cat:T(v.categoria), name:T(v.nombre), color:"--rose", href:"#iniciativas", seeall:t("ini_seeall") });
+
+  return `
+  <div class="panel reveal c-8" style="--accent:var(--orange-fill);">
+    <span class="card-kicker" style="--accent:var(--orange-fill);"><span>${esc(t("highlights_kicker"))}</span></span>
+    ${items.map((it, i) => `
+    ${i ? '<div class="highlight-divider"></div>' : ""}
+    <div class="highlight-item">
+      <div class="highlight-item-top">
+        <span class="highlight-label">${esc(it.label)}</span>
+        <span class="pill${it.live ? "" : " pill-soon"}">${esc(it.live ? it.pillOn : t("pill_soon"))}</span>
+      </div>
+      <h4 class="highlight-title">${esc(it.cat)}<span class="highlight-type" style="color:var(${it.color});"> · ${esc(it.name)}</span></h4>
+      <a href="${it.href}" class="sec-link">${esc(it.seeall)}</a>
+    </div>`).join("")}
+  </div>`;
+}
+
+function renderDocumentos(){
+  return `
+  <div class="panel reveal cv-card c-4" style="--accent:var(--gold);">
+    <span class="card-kicker" style="--accent:var(--gold);"><span>${esc(t("cv_kicker"))}</span></span>
+    <div class="cv-doc"><span class="cv-doc-icon" style="color:var(--gold);">${ICONOS.doc}</span><span class="cv-doc-name">PDF</span></div>
+    <p class="cv-desc">${esc(t("cv_desc"))}</p>
+    <div class="cv-btns">
+      <a href="mailto:${S.email}?subject=${encodeURIComponent(t("cv_mail_subject"))}&body=${encodeURIComponent(t("cv_mail_body"))}" class="btn primary">${esc(t("cv_btn"))}</a>
+    </div>
+  </div>`;
+}
+
+/* Tarjeta compacta compartida por Casos de negocio y Soluciones:
+   numeración, miniatura, categoría (color de sección) y tipo, descripción
+   breve, enlace. Formato "galería continua", no la ficha ancha anterior.  */
+function caseCardHTML({ num, accentVar, preview, categoria, tipo, desc, ctaUrl, ctaLabel, soonLabel, detalleKey }){
+  const link = ctaUrl
+    ? `<a href="${ctaUrl}" target="_blank" rel="noopener" class="case-link">${esc(ctaLabel)} →</a>`
+    : `<span class="case-link case-link-soon">${esc(soonLabel || t("btn_soon"))}</span>`;
+  return `
+  <div class="panel reveal case-card c-3">
+    <div class="case-thumb">
+      <span class="case-num">${esc(num)}</span>
+      ${PREVIEWS[preview] || ""}
+    </div>
+    <div class="case-body">
+      <h4 class="case-category">${esc(categoria)}</h4>
+      <span class="case-type" style="color:var(${accentVar});">${esc(tipo)}</span>
+      <p class="case-desc">${esc(desc)}</p>
+      <div class="case-actions">
+        ${detalleKey ? `<button type="button" class="case-more" data-detalle="${detalleKey}">${esc(t("btn_more"))}</button>` : ""}
+        ${link}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderCasos(){
+  return CONTENIDO.casos.map(p => caseCardHTML({
+    num: p.num,
+    accentVar: `--${p.color}`,
+    preview: p.preview,
+    categoria: T(p.categoria),
+    tipo: T(p.tipo),
+    desc: T(p.desc),
+    ctaUrl: p.cta ? p.cta.url : null,
+    ctaLabel: t("btn_view_case"),
+    detalleKey: p.detalle ? "casos:" + CONTENIDO.casos.indexOf(p) : null
+  })).join("");
+}
+
+function renderIniciativas(){
+  return (CONTENIDO.iniciativas||[]).map((p, i) => caseCardHTML({
+    num: String(i+1).padStart(2,"0"),
+    accentVar: "--rose",
+    preview: p.preview,
+    categoria: T(p.categoria),
+    tipo: T(p.tipo),
+    desc: T(p.desc),
+    ctaUrl: p.url,
+    ctaLabel: t("btn_view_demo"),
+    soonLabel: p.estado ? T(p.estado) : null,
+    detalleKey: p.detalle ? "iniciativas:" + i : null
+  })).join("");
+}
+
+function renderPerfil(){
+  const p = CONTENIDO.perfil;
+  return `
+  <div class="panel reveal perfil-card c-12" style="--accent:var(--violet);">
+      <span class="card-kicker" style="--accent:var(--violet);"><span>${esc(T(p.kicker))}</span></span>
+      <h3 class="perfil-cargo">${esc(T(p.cargo))}</h3>
+      <p class="perfil-empresa">${esc(T(p.empresa))}</p>
+      <p class="perfil-texto">${esc(T(p.texto))}</p>
+      <p class="perfil-formacion">${ICONOS.doc}${esc(T(p.formacion))}</p>
+  </div>`;
+}
+
+function renderSoluciones(){
+  return CONTENIDO.herramientas.map((h, i) => caseCardHTML({
+    num: String(i+1).padStart(2,"0"),
+    accentVar: "--cyan",
+    preview: "matriz",
+    categoria: T(h.categoria),
+    tipo: T(h.nombre),
+    desc: T(h.desc),
+    ctaUrl: (h.estado === "live" && h.url) ? h.url : null,
+    ctaLabel: t("btn_view_project"),
+    detalleKey: h.detalle ? "herramientas:" + i : null
+  })).join("");
+}
+
+function renderImpactoStrip(){
+  const items = CONTENIDO.impacto.map(i => `
+    <div class="impact-chip">
+      <span class="impact-chip-icon" style="color:var(--${i.color});">${ICONOS[i.icono]||""}</span>
+      <span>${esc(T(i.frase))}</span>
+    </div>`).join("");
+  return `
+  <div class="panel reveal impact-strip">
+    <span class="impact-kicker">${esc(t("impact_kicker"))}</span>
+    <div class="impact-items">${items}</div>
+  </div>`;
+}
+
+/* ------------------------------------------------------------ INVESTIGACIÓN
+   Sin estudios publicados todavía: estado vacío honesto, no contenido
+   inventado. Se reemplaza por tarjetas reales cuando exista el primero.  */
+function renderInvestigacion(){
+  return `
+  <div class="panel reveal placeholder-panel c-12">
+    <div class="placeholder-icon">${ICONOS.doc}</div>
+    <p class="placeholder-text">${esc(t("investigacion_empty"))}</p>
+  </div>`;
+}
+
+function renderFooter(){
+  return `
+  <div>
+    <span class="footer-kicker">${esc(t("footer_kicker"))}</span>
+    <p class="footer-text">${esc(t("footer_text"))}</p>
+  </div>
+  <div class="footer-mid">
+    <a href="mailto:${S.email}" class="footer-item">${ICONOS.sobre}${esc(S.email)}</a>
+    <span class="footer-item">${ICONOS.pin}${esc(t("footer_place"))}</span>
+  </div>
+  <div class="footer-socials">
+    <a href="${S.linkedin}" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">in</a>
+    <a href="${S.github}" target="_blank" rel="noopener" class="social-btn" title="GitHub">GH</a>
+  </div>`;
+}
+
+/* ------------------------------------------------------- RENDER GENERAL */
+function render(){
+  document.documentElement.lang = LANG;
+  document.title = t("seo_title");
+
+  const set = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
+  set("heroGrid",     renderHero());
+  set("metricsGrid",  renderMetricas());
+  set("impactStrip",  renderImpactoStrip());
+  set("toolsGrid",    renderStack() + renderHighlights() + renderDocumentos());
+  set("casosGrid",         renderCasos());
+  set("solucionesGrid",    renderSoluciones());
+  set("iniciativasGrid",   renderIniciativas());
+  set("investigacionGrid", renderInvestigacion());
+  set("aboutGrid",       renderPerfil());
+  set("footerPanel",  renderFooter());
+
+  document.querySelectorAll("[data-t]").forEach(el => el.textContent = t(el.dataset.t));
+
+  const mail = document.getElementById("emailBtn");
+  if(mail){
+    mail.href = `mailto:${S.email}?subject=${encodeURIComponent(t("mail_subject"))}`
+              + `&body=${encodeURIComponent(t("mail_body"))}`;
+  }
+  document.querySelectorAll("#langToggle button")
+    .forEach(b => b.classList.toggle("active", b.dataset.lang === LANG));
+
+  closeDetalle(false);
+  initGlow();
+  initReveal();
+}
+
+/* ------------------------------------------------ RECUADRO «MÁS INFORMACIÓN»
+   Un solo recuadro para casos, soluciones e iniciativas. El contenido sale
+   del campo `detalle` de cada pieza en contenido.js.                     */
+const DETALLE_CFG = {
+  casos:        { color:"--orange-fill", kicker:"sec_casos",
+                  url:p => p.cta ? p.cta.url : null, label:"btn_view_case",
+                  title:p => T(p.tipo), sub:p => T(p.categoria) },
+  herramientas: { color:"--cyan", kicker:"sec_soluciones",
+                  url:p => (p.estado === "live" ? p.url : null), label:"btn_view_project",
+                  title:p => T(p.nombre), sub:p => T(p.categoria) },
+  iniciativas:  { color:"--rose", kicker:"sec_iniciativas",
+                  url:p => p.url, label:"btn_view_demo",
+                  title:p => T(p.tipo), sub:p => T(p.categoria) }
+};
+let detalleOrigen = null;
+
+function openDetalle(key, origen){
+  const [grupo, idx] = key.split(":");
+  const cfg = DETALLE_CFG[grupo];
+  const p = (CONTENIDO[grupo] || [])[+idx];
+  if(!cfg || !p || !p.detalle) return;
+  const url = cfg.url(p);
+  const box = document.getElementById("detalleBox");
+  box.style.setProperty("--accent", `var(${cfg.color})`);
+  box.innerHTML = `
+    <button type="button" class="modal-close" id="detalleClose" aria-label="${esc(t("btn_close"))}">✕</button>
+    <span class="modal-kicker">${esc(t(cfg.kicker))}</span>
+    <h3 class="modal-title" id="detalleTitulo">${esc(cfg.title(p))}</h3>
+    <p class="modal-sub">${esc(cfg.sub(p))}</p>
+    ${p.detalle.map(b => `
+      <div class="modal-block">
+        <h5>${esc(T(b.titulo))}</h5>
+        <ul>${b.items.map(x => `<li>${esc(T(x))}</li>`).join("")}</ul>
+      </div>`).join("")}
+    <div class="modal-foot">
+      ${url ? `<a href="${url}" target="_blank" rel="noopener" class="btn primary">${esc(t(cfg.label))} →</a>` : ""}
+      <button type="button" class="btn" id="detalleCerrar">${esc(t("btn_close"))}</button>
+    </div>`;
+  const back = document.getElementById("detalleBack");
+  back.classList.add("open");
+  back.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  detalleOrigen = origen || null;
+  document.getElementById("detalleClose").focus();
+}
+
+function closeDetalle(devolverFoco = true){
+  const back = document.getElementById("detalleBack");
+  if(!back || !back.classList.contains("open")) return;
+  back.classList.remove("open");
+  back.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  if(devolverFoco && detalleOrigen && document.body.contains(detalleOrigen)) detalleOrigen.focus();
+  detalleOrigen = null;
+}
+
+document.addEventListener("click", e => {
+  const more = e.target.closest(".case-more");
+  if(more){ openDetalle(more.dataset.detalle, more); return; }
+  if(e.target.id === "detalleBack" || e.target.closest("#detalleClose, #detalleCerrar")) closeDetalle();
+});
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeDetalle(); });
+
+/* ------------------------------------------------------------- IDIOMA */
+document.getElementById("langToggle").addEventListener("click", e => {
+  const b = e.target.closest("button[data-lang]");
+  if(!b || b.dataset.lang === LANG) return;
+  LANG = b.dataset.lang;
+  store.set("jdc-lang", LANG);
+  render();
+});
+
+/* --------------------------------------------------------------- TEMA */
+const themeBtn = document.getElementById("themeToggle");
+function applyTheme(dark){
+  document.body.classList.toggle("theme-dark", dark);
+  themeBtn.textContent = dark ? "☀" : "🌙";
+}
+applyTheme(store.get("jdc-theme") !== "light");
+themeBtn.addEventListener("click", () => {
+  const dark = !document.body.classList.contains("theme-dark");
+  applyTheme(dark);
+  store.set("jdc-theme", dark ? "dark" : "light");
+});
+
+/* ------------------------------------------------------- MENÚ MÓVIL */
+(function(){
+  const burger = document.getElementById("navBurger");
+  const links  = document.querySelector(".nav-links");
+  if(!burger || !links) return;
+  burger.addEventListener("click", () => {
+    const open = links.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  links.addEventListener("click", e => {
+    if(e.target.tagName === "A"){
+      links.classList.remove("open");
+      burger.setAttribute("aria-expanded","false");
+    }
+  });
+})();
+
+/* ------------------------------------------- BARRA DE PROGRESO DE SCROLL */
+(function(){
+  const bar = document.getElementById("scrollProgress");
+  if(!bar) return;
+  const upd = () => {
+    const h = document.documentElement;
+    const s = h.scrollHeight - h.clientHeight;
+    bar.style.width = (s > 0 ? (h.scrollTop / s) * 100 : 0) + "%";
+  };
+  window.addEventListener("scroll", upd, { passive:true });
+  window.addEventListener("resize", upd);
+  upd();
+})();
+
+/* -------------------------------------------- APARICIÓN AL HACER SCROLL */
+let revealObserver = null;
+function initReveal(){
+  const items = Array.from(document.querySelectorAll(".reveal"));
+  if(!("IntersectionObserver" in window)){
+    items.forEach(el => el.classList.add("visible")); return;
+  }
+  if(revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        const sib = Array.from(en.target.parentElement.children)
+                         .filter(x => x.classList.contains("reveal"));
+        en.target.style.transitionDelay =
+          Math.min(Math.max(0, sib.indexOf(en.target)) * 70, 280) + "ms";
+        en.target.classList.add("visible");
+      } else {
+        en.target.style.transitionDelay = "0ms";
+        en.target.classList.remove("visible");
+      }
+    });
+  }, { rootMargin:"0px 0px -8% 0px", threshold:0.08 });
+  items.forEach(el => revealObserver.observe(el));
+}
+
+/* ------------------------------------------------ BRILLO EN LAS TARJETAS */
+function initGlow(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".panel").forEach(p => {
+    if(p.querySelector(":scope > .panel-glow")) return;
+    const g = document.createElement("div");
+    g.className = "panel-glow";
+    p.prepend(g);
+    p.addEventListener("pointermove", e => {
+      const r = p.getBoundingClientRect();
+      p.style.setProperty("--px", ((e.clientX - r.left) / r.width) * 100 + "%");
+      p.style.setProperty("--py", ((e.clientY - r.top) / r.height) * 100 + "%");
+    }, { passive:true });
+  });
+}
+
+/* --------------------------------------------------- HALO DEL CURSOR */
+(function(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let raf = null, lx = 50, ly = 50;
+  window.addEventListener("pointermove", e => {
+    lx = (e.clientX / window.innerWidth) * 100;
+    ly = (e.clientY / window.innerHeight) * 100;
+    if(raf) return;
+    raf = requestAnimationFrame(() => {
+      document.body.style.setProperty("--mx", lx + "%");
+      document.body.style.setProperty("--my", ly + "%");
+      raf = null;
+    });
+  }, { passive:true });
+})();
+
+/* --------------------------------------------- FONDO DE PARTÍCULAS */
+(function(){
+  const canvas = document.getElementById("particles-bg");
+  if(!canvas) return;
+  const ctx = canvas.getContext && canvas.getContext("2d");
+  if(!ctx) return;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let w, h, dpr, parts = [], mouse = { x:null, y:null };
+
+  const colors = () => document.body.classList.contains("theme-dark")
+    ? { line:"143,168,255", dot:"127,212,242" }
+    : { line:"110,140,245", dot:"95,193,232" };
+  const rand = (a,b) => a + Math.random() * (b - a);
+
+  function resize(){
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + "px"; canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = reduced ? 0 : Math.round(Math.min(80, Math.max(28, (w * h) / 26000)));
+    parts = Array.from({ length:count }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: rand(-0.13, 0.13), vy: rand(-0.13, 0.13), r: rand(1, 2.1)
+    }));
+  }
+
+  function step(){
+    ctx.clearRect(0, 0, w, h);
+    const { line, dot } = colors();
+    for(const p of parts){
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > w) p.vx *= -1;
+      if(p.y < 0 || p.y > h) p.vy *= -1;
+      if(mouse.x !== null){
+        const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        if(dx*dx + dy*dy < 16000){ p.x += dx * 0.0022; p.y += dy * 0.0022; }
+      }
+    }
+    for(let i = 0; i < parts.length; i++){
+      for(let j = i + 1; j < parts.length; j++){
+        const a = parts[i], b = parts[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 128){
+          ctx.strokeStyle = `rgba(${line},${(1 - dist/128) * 0.14})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for(const p of parts){
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${dot},0.55)`;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(step);
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+  window.addEventListener("pointermove", e => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive:true });
+  window.addEventListener("pointerleave", () => { mouse.x = mouse.y = null; });
+  if(!reduced) step();
+})();
+
+/* ------------------------------------------------------------ ARRANQUE */
+render();
