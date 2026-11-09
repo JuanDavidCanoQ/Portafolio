@@ -7,6 +7,9 @@
 !/README.md
 !/LICENSE
 
+# Despliegue (Vercel): X-Robots-Tag noindex en todas las rutas (#9b, 2026-11-09)
+!/vercel.json
+
 # Sitio
 !/index.html
 !/contenido.js
