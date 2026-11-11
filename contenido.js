@@ -82,8 +82,8 @@ const CONTENIDO = {
                            en:"Original reports on Colombia's business and regulatory environment." },
     investigacion_empty: { es:"Dos informes en preparación para publicación: facturación electrónica y asuntos regulatorios en Colombia.",
                             en:"Two reports being prepared for publication: e-invoicing and regulatory affairs in Colombia." },
-    casos_note:     { es:"Trabajo real, con nombres anonimizados y cifras de negocio ficticias para proteger información confidencial.",
-                      en:"Real work, with anonymized names and fictitious business figures to protect confidential information." },
+    casos_note:     { es:"Trabajo real, presentado con datos sintéticos y sin nombres de la empresa para proteger información confidencial.",
+                      en:"Real work, shown with synthetic data and without company names to protect confidential information." },
     sec_about:    { es:"Sobre mí", en:"About me" },
 
     btn_soon:         { es:"Próximamente",   en:"Coming soon" },
@@ -193,15 +193,18 @@ const CONTENIDO = {
     { num:"01", color:"orange-fill", preview:"dashboard",
       categoria:{ es:"Business Intelligence", en:"Business Intelligence" },
       tipo:{ es:"Panel ejecutivo de mercadeo", en:"Executive marketing dashboard" },
-      desc:{ es:"Análisis comercial de un área de mercadeo en Power BI, con una versión web interactiva verificada contra el modelo.",
-             en:"Commercial analysis for a marketing team in Power BI, with an interactive web version verified against the model." },
+      desc:{ es:"Informe de Power BI para el análisis comercial de un área de mercadeo y su réplica web interactiva de uso interno, verificada contra el modelo.",
+             en:"A Power BI report for a marketing team's commercial analysis and its interactive web replica for internal use, verified against the model." },
       items:[
         { es:"Ventas y márgenes por canal",       en:"Sales and margins by channel" },
         { es:"Compras y portafolio de productos", en:"Purchasing and product portfolio" },
         { es:"Modelo semántico y DAX",            en:"Semantic model and DAX" },
         { es:"Versión web verificada",            en:"Verified web version" }
       ],
-      cta:null,
+      /* La página del caso abre en inglés con ?lang=en (vive en otro dominio,
+         así que la preferencia de idioma del sitio no pasa sola).           */
+      cta:{ url:{ es:"https://caso-panel-ejecutivo.vercel.app",
+                  en:"https://caso-panel-ejecutivo.vercel.app/?lang=en" } },
       detalle:[
         { titulo:{ es:"Qué es", en:"What it is" },
           items:[
@@ -209,17 +212,17 @@ const CONTENIDO = {
           ] },
         { titulo:{ es:"Qué construí", en:"What I built" },
           items:[
-            { es:"Informe de Power BI de 16 páginas: conexiones en Power Query, modelo semántico y más de 600 medidas DAX, sobre una base de datos en SQL que consolida las fuentes de ventas.", en:"A 16-page Power BI report: Power Query connections, a semantic model and 600+ DAX measures, on top of a SQL database that consolidates the sales sources." },
-            { es:"Tablero web interactivo que replica el informe en el navegador y se verifica automáticamente contra el modelo: 0 diferencias en las 16 vistas.", en:"An interactive web dashboard that replicates the report in the browser and is automatically checked against the model: 0 differences across the 16 views." },
-            { es:"Construcción automatizada con Python y validada en cerca de 2.000 combinaciones de filtros.", en:"Build automated with Python and tested across nearly 2,000 filter combinations." }
+            { es:"Informe de Power BI de 16 páginas: conexiones en Power Query, modelo semántico de 19 tablas y 31 relaciones, y 633 medidas DAX.", en:"A 16-page Power BI report: Power Query connections, a semantic model with 19 tables and 31 relationships, and 633 DAX measures." },
+            { es:"Tablero web interactivo de uso interno del equipo y la gerencia, que replica el informe en el navegador, generado con Python a partir del informe.", en:"An interactive web dashboard for internal use by the team and management that replicates the report in the browser, generated with Python from the report." },
+            { es:"Verificación automática: cada texto de la web se compara con el valor del modelo, en las 16 vistas y con filtros aplicados. Resultado: 0 diferencias.", en:"Automated check: every number on the web page is compared with the model's value, across the 16 views and with filters applied. Result: 0 differences." }
           ] },
         { titulo:{ es:"Herramientas", en:"Tools" },
           items:[
-            { es:"Power BI · DAX · Power Query · SQL · Python", en:"Power BI · DAX · Power Query · SQL · Python" }
+            { es:"Power BI (PBIP/PBIR) · DAX · Power Query · SAP BW · Python · Playwright · Claude + MCP · HTML/CSS/JS", en:"Power BI (PBIP/PBIR) · DAX · Power Query · SAP BW · Python · Playwright · Claude + MCP · HTML/CSS/JS" }
           ] },
         { titulo:{ es:"Estado", en:"Status" },
           items:[
-            { es:"Material anonimizado; publicación en preparación. Las cifras de negocio de las imágenes son ficticias.", en:"Anonymized material; publication in progress. Business figures shown in images are fictitious." }
+            { es:"Publicado. Las capturas se tomaron sobre una copia del modelo con datos sintéticos; las cifras de construcción (páginas, tablas, relaciones, medidas, pruebas) son reales.", en:"Published. Screenshots were taken on a copy of the model loaded with synthetic data; the build figures (pages, tables, relationships, measures, tests) are real." }
           ] }
       ] }
     /* Próximo caso: agregar aquí con la misma estructura */

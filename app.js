@@ -264,7 +264,7 @@ function renderCasos(){
     categoria: T(p.categoria),
     tipo: T(p.tipo),
     desc: T(p.desc),
-    ctaUrl: p.cta ? p.cta.url : null,
+    ctaUrl: p.cta ? T(p.cta.url) : null,
     ctaLabel: t("btn_view_case"),
     detalleKey: p.detalle ? "casos:" + CONTENIDO.casos.indexOf(p) : null
   })).join("");
@@ -388,7 +388,7 @@ function render(){
    del campo `detalle` de cada pieza en contenido.js.                     */
 const DETALLE_CFG = {
   casos:        { color:"--orange-fill", kicker:"sec_casos",
-                  url:p => p.cta ? p.cta.url : null, label:"btn_view_case",
+                  url:p => p.cta ? T(p.cta.url) : null, label:"btn_view_case",
                   title:p => T(p.tipo), sub:p => T(p.categoria) },
   herramientas: { color:"--cyan", kicker:"sec_soluciones",
                   url:p => (p.estado === "live" ? p.url : null), label:"btn_view_project",
